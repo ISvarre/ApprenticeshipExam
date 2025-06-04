@@ -15696,110 +15696,141 @@ function compileToFunction(template, options) {
   return compileCache[key] = render2;
 }
 registerRuntimeCompiler(compileToFunction);
-const _hoisted_1$2 = { class: "flex flex-col items-center justify-center text-center w-full px-10 py-6" };
-const _sfc_main$3 = /* @__PURE__ */ defineComponent({
+const _hoisted_1$1 = { class: "flex flex-col items-center justify-center text-center w-full px-10 py-6" };
+const _sfc_main$1 = /* @__PURE__ */ defineComponent({
   __name: "VueButton",
   setup(__props) {
     console.log("Button");
     return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("div", _hoisted_1$2, _cache[0] || (_cache[0] = [
-        createStaticVNode('<h1 class="p-6">Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1 class="text-xl font-semibold border-2 gap-2">Hello</h1><h1 class="flex justify-between px-5 py-2">Hello</h1><h1 class="text-4xl max-w-4xl font-bold mb-4">Hello</h1><h1 class="grid grid-cols-5 gap-4 px-20">Hello</h1>', 16)
+      return openBlock(), createElementBlock("div", _hoisted_1$1, _cache[0] || (_cache[0] = [
+        createBaseVNode("h1", { class: "grid grid-cols-5 gap-4 px-20" }, "Hello", -1)
       ]));
     };
   }
 });
-const _hoisted_1$1 = ["href"];
-const _hoisted_2$1 = { class: "absolute top-3 left-3 bg-red-500 text-white text-xs font-semibold py-1 px-3 rounded-full z-10" };
-const _hoisted_3$1 = { class: "relative p-4 text-center text-white" };
-const _hoisted_4$1 = { class: "text-lg font-bold" };
-const _hoisted_5$1 = { class: "text-sm" };
-const _sfc_main$2 = /* @__PURE__ */ defineComponent({
-  __name: "DestinationCard",
-  props: {
-    image: String,
-    title: String,
-    location: String,
-    tag: String,
-    page: String
+/**
+ * @license lucide-vue-next v0.513.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const toKebabCase = (string) => string.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+const toCamelCase = (string) => string.replace(
+  /^([A-Z])|[\s-_]+(\w)/g,
+  (match, p1, p2) => p2 ? p2.toUpperCase() : p1.toLowerCase()
+);
+const toPascalCase = (string) => {
+  const camelCase = toCamelCase(string);
+  return camelCase.charAt(0).toUpperCase() + camelCase.slice(1);
+};
+const mergeClasses = (...classes) => classes.filter((className, index, array) => {
+  return Boolean(className) && className.trim() !== "" && array.indexOf(className) === index;
+}).join(" ").trim();
+/**
+ * @license lucide-vue-next v0.513.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+var defaultAttributes = {
+  xmlns: "http://www.w3.org/2000/svg",
+  width: 24,
+  height: 24,
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  "stroke-width": 2,
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round"
+};
+/**
+ * @license lucide-vue-next v0.513.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const Icon = ({ size, strokeWidth = 2, absoluteStrokeWidth, color, iconNode, name, class: classes, ...props }, { slots }) => {
+  return h(
+    "svg",
+    {
+      ...defaultAttributes,
+      width: size || defaultAttributes.width,
+      height: size || defaultAttributes.height,
+      stroke: color || defaultAttributes.stroke,
+      "stroke-width": absoluteStrokeWidth ? Number(strokeWidth) * 24 / Number(size) : strokeWidth,
+      class: mergeClasses(
+        "lucide",
+        ...name ? [`lucide-${toKebabCase(toPascalCase(name))}-icon`, `lucide-${toKebabCase(name)}`] : ["lucide-icon"]
+      ),
+      ...props
+    },
+    [...iconNode.map((child) => h(...child)), ...slots.default ? [slots.default()] : []]
+  );
+};
+/**
+ * @license lucide-vue-next v0.513.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const createLucideIcon = (iconName, iconNode) => (props, { slots }) => h(
+  Icon,
+  {
+    ...props,
+    iconNode,
+    name: iconName
   },
-  setup(__props) {
-    return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("a", {
-        href: __props.page,
-        class: "relative flex flex-col justify-end bg-cover bg-center rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 h-80 w-48 gap-2",
-        style: normalizeStyle({ backgroundImage: `url(${__props.image})` })
-      }, [
-        _cache[0] || (_cache[0] = createBaseVNode("div", { class: "absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" }, null, -1)),
-        createBaseVNode("span", _hoisted_2$1, toDisplayString(__props.tag), 1),
-        createBaseVNode("div", _hoisted_3$1, [
-          createBaseVNode("h3", _hoisted_4$1, toDisplayString(__props.title), 1),
-          createBaseVNode("p", _hoisted_5$1, toDisplayString(__props.location), 1)
-        ])
-      ], 12, _hoisted_1$1);
-    };
-  }
-});
-const _sfc_main$1 = /* @__PURE__ */ defineComponent({
-  __name: "FavoriteButton",
-  setup(__props) {
-    const isFavorite = ref(false);
-    const checkIfFavorite = () => {
-      const currentPage = window.location.href;
-      let favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-      isFavorite.value = favorites.includes(currentPage);
-    };
-    const toggleFavorite = () => {
-      const currentPage = window.location.href;
-      let favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-      if (favorites.includes(currentPage)) {
-        favorites = favorites.filter((page) => page !== currentPage);
-        isFavorite.value = false;
-      } else {
-        favorites.push(currentPage);
-        isFavorite.value = true;
-      }
-      localStorage.setItem("favorites", JSON.stringify(favorites));
-    };
-    checkIfFavorite();
-    return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("button", {
-        onClick: toggleFavorite,
-        class: normalizeClass([{ "bg-blue-500": isFavorite.value, "bg-gray-500": !isFavorite.value }, "p-2 rounded text-white"])
-      }, toDisplayString(isFavorite.value ? "Remove from Favorites" : "Save as Favorite"), 3);
-    };
-  }
-});
-const _hoisted_1 = { class: "grid grid-cols-3" };
-const _hoisted_2 = { class: "col-span-2 px-4 max-w-3xl" };
-const _hoisted_3 = { class: "flex flex-col text-2xl font-bold" };
-const _hoisted_4 = { class: "border-b-2 border-gray-400 mb-6" };
-const _hoisted_5 = { class: "flex flex-col gap-2 px-4" };
-const _hoisted_6 = ["src"];
+  slots
+);
+/**
+ * @license lucide-vue-next v0.513.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const Calendar = createLucideIcon("calendar", [
+  ["path", { d: "M8 2v4", key: "1cmpym" }],
+  ["path", { d: "M16 2v4", key: "4m81vk" }],
+  ["rect", { width: "18", height: "18", x: "3", y: "4", rx: "2", key: "1hopcy" }],
+  ["path", { d: "M3 10h18", key: "8toen8" }]
+]);
+/**
+ * @license lucide-vue-next v0.513.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const Users = createLucideIcon("users", [
+  ["path", { d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2", key: "1yyitq" }],
+  ["path", { d: "M16 3.128a4 4 0 0 1 0 7.744", key: "16gr8j" }],
+  ["path", { d: "M22 21v-2a4 4 0 0 0-3-3.87", key: "kshegd" }],
+  ["circle", { cx: "9", cy: "7", r: "4", key: "nufk8" }]
+]);
+const _hoisted_1 = { className: "bg-white shadow-sm border-b" };
+const _hoisted_2 = { className: "flex-col gap-4  sm:flex-row md:max-w-7xl flex items-center justify-between mx-auto px-4 sm:px-6 lg:px-8 py-4" };
+const _hoisted_3 = { className: "flex items-center space-x-3" };
+const _hoisted_4 = { className: "bg-blue-600 p-2 rounded-lg" };
+const _hoisted_5 = { className: "flex items-center space-x-2 text-md text-gray-600" };
 const _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: "Article",
-  props: {
-    image: String,
-    title: String,
-    ingress: String,
-    content: String
-  },
+  __name: "Header",
   setup(__props) {
+    let today = /* @__PURE__ */ new Date();
     return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("div", _hoisted_1, [
+      return openBlock(), createElementBlock("header", _hoisted_1, [
         createBaseVNode("div", _hoisted_2, [
-          createBaseVNode("div", _hoisted_3, toDisplayString(__props.title), 1),
-          createBaseVNode("div", _hoisted_4, toDisplayString(__props.ingress), 1),
-          renderSlot(_ctx.$slots, "content", { class: "" }, () => [
-            createTextVNode(toDisplayString(__props.content), 1)
+          createBaseVNode("div", _hoisted_3, [
+            createBaseVNode("div", _hoisted_4, [
+              createVNode(unref(Users), { color: "white" })
+            ]),
+            _cache[0] || (_cache[0] = createBaseVNode("div", null, [
+              createBaseVNode("h1", { className: "text-2xl font-bold text-gray-900" }, "CC Lunsjassistent"),
+              createBaseVNode("p", { className: "text-sm text-gray-600" }, "Crayon Consulting Innlandet")
+            ], -1))
+          ]),
+          createBaseVNode("div", _hoisted_5, [
+            createVNode(unref(Calendar), { color: "gray" }),
+            createBaseVNode("p", null, toDisplayString(unref(today).toLocaleDateString("no-NO", { weekday: "long", year: "numeric", month: "long", day: "numeric" })), 1)
           ])
-        ]),
-        createBaseVNode("div", _hoisted_5, [
-          createVNode(_sfc_main$1),
-          createBaseVNode("img", {
-            src: __props.image,
-            alt: "img",
-            class: "rounded-lg w-full"
-          }, null, 8, _hoisted_6)
         ])
       ]);
     };
@@ -15807,8 +15838,6 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
 });
 console.log("Hello World");
 const app = createApp({});
-app.component("FfVueButton", _sfc_main$3);
-app.component("FfDestinationCard", _sfc_main$2);
-app.component("FfArticle", _sfc_main);
-app.component("FfFavoriteButton", _sfc_main$1);
+app.component("FfVueButton", _sfc_main$1);
+app.component("FfHeader", _sfc_main);
 app.mount("#app");
