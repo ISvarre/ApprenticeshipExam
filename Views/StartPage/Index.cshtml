@@ -1,7 +1,11 @@
 @inherits ApprenticeshipExam.Views.AlloyPageBase<PageViewModel<ApprenticeshipExam.Models.Pages.StartPage>>
 
 <div class="start">
+    <h1 class="bg-red-500">Hello there this is fun</h1>
+    <ff-vue-button></ff-vue-button>
+    
+    <div is="vue:ff-vue-button"></div>
     <div epi-property="@Model.CurrentPage.MainContentArea" class="row">
-        <div epi-property-item class="block" epi-on-item-rendered="OnItemRendered" />
+        <div epi-property-item class="block" epi-on-item-rendered="OnItemRendered"/>
     </div>
 </div>
