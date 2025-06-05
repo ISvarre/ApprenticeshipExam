@@ -1,6 +1,6 @@
 ﻿<script setup lang="ts">
 import { Utensils, Plus } from "lucide-vue-next";
-import { ref, computed } from 'vue';
+import { ref, computed, watch, onMounted } from 'vue';
 
 const props = defineProps({
     title: {
@@ -9,7 +9,7 @@ const props = defineProps({
     },
     description: {
         type: String,
-        default: 'Her kan du enkelt koordinere lunsjen i lokalene våre. Registrer deg for dagens lunsj, legg til ønsker på innkjøpslisten, og hold oversikt over hvem som handler og hvor Kiwikortet er.'
+        default: 'Her kan you enkelt koordinere lunsjen i lokalene våre. Registrer deg for dagens lunsj, legg til ønsker på innkjøpslisten, og hold oversikt over hvem som handler og hvor Kiwikortet er.'
     }
 });
 
@@ -37,7 +37,7 @@ const newLunchOption = ref({
     description: '',
 });
 
-const selectedLunchOptionId = ref(2);
+const selectedLunchOptionId = ref<number | null>(2);
 
 const selectedLunchOption = computed(() => {
     return lunchOptions.value.find(
@@ -96,6 +96,98 @@ const cancelCreate = () => {
         description: '',
     };
 };
+
+const canteenMenu = ref([
+    {
+        day: 'Mandag',
+        meal: 'Taco',
+        description: 'Med kjøtt, salat og tilbehør',
+        highlighted: false,
+    },
+    {
+        day: 'Tirsdag',
+        meal: 'Indrefilet',
+        description: 'Med potetmos og grønnsaker',
+        highlighted: false,
+    },
+    {
+        day: 'Onsdag',
+        meal: 'Kylling Tikka Masala',
+        description: 'Med basmatiris og nanbrød',
+        highlighted: true,
+    },
+    {
+        day: 'Torsdag',
+        meal: 'Fiskegrateng',
+        description: 'Med salat og brød',
+        highlighted: false,
+    },
+    {
+        day: 'Fredag',
+        meal: 'Pizza',
+        description: 'Dagens pizza med salat',
+        highlighted: false,
+    },
+]);
+
+function getTodayName(): string {
+    const days = ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag'];
+    const today = new Date().getDay();
+    return days[today];
+}
+function updateMenuForToday() {
+    const todayName = getTodayName();
+    const menu = canteenMenu.value;
+    menu.forEach(item => {
+        // Find the correct day in `canteenMenu`
+        const originalDayName = item.day.replace('I dag: ', ''); // Remove 'I dag: ' prefix for comparison
+
+        // Check if the current item's original day name matches today's name
+        // or if it's already marked as 'I dag' (from a previous run perhaps)
+        if (originalDayName === todayName || item.day.startsWith('I dag')) {
+            item.highlighted = true;
+            item.day = 'I dag'; // Set 'I dag' for the highlighted item
+        } else {
+            // Reset day to original day name if not today and not already original
+            const originalEntry = canteenMenu.value.find(
+                (original) => original.meal === item.meal && original.description === item.description
+            );
+            if (originalEntry && item.day !== originalEntry.day) {
+                item.day = originalEntry.day;
+            }
+            item.highlighted = false;
+        }
+    });
+
+    // Move today's item to the top
+    const todayIndex = menu.findIndex(item => item.day === 'I dag');
+    if (todayIndex !== -1 && todayIndex > 0) { // Check for -1 (not found) and if it's not already at the top
+        const [todayItem] = menu.splice(todayIndex, 1);
+        menu.unshift(todayItem);
+    }
+}
+
+
+onMounted(() => {
+    updateMenuForToday();
+});
+
+const isEditingMenu = ref(false);
+const editableMenu = ref([] as typeof canteenMenu.value);
+
+function startEditMenu() {
+    editableMenu.value = canteenMenu.value.map(item => ({ ...item }));
+    isEditingMenu.value = true;
+}
+
+function saveMenu() {
+    canteenMenu.value = editableMenu.value.map(item => ({ ...item }));
+    isEditingMenu.value = false;
+}
+
+function cancelEditMenu() {
+    isEditingMenu.value = false;
+}
 </script>
 
 <template>
@@ -107,7 +199,7 @@ const cancelCreate = () => {
                 <p class="text-sm text-gray-500">{{ props.description }}</p>
             </div>
 
-            <div class="flex w-full">
+            <div class="flex w-full gap-6">
                 <div class="flex flex-col bg-white p-6 rounded-md shadow-sm w-1/2">
                     <div class="flex justify-between items-center mb-6">
                         <div>
@@ -139,10 +231,10 @@ const cancelCreate = () => {
                             v-for="option in lunchOptions"
                             :key="option.id"
                             :class="[
-                                'bg-white border rounded-lg p-5 shadow-sm w-fit cursor-pointer transition-all duration-200 ease-in-out hover:shadow-lg hover:-translate-y-0.5',
+                                ' border rounded-lg p-5 shadow-sm w-fit cursor-pointer transition-all duration-200 ease-in-out hover:shadow-lg hover:-translate-y-0.5',
                                 option.selected
-                                  ? 'border-blue-500 ring-2 ring-blue-200'
-                                  : 'border-gray-200',
+                                  ? 'border-blue-500 ring-2 ring-blue-200 bg-blue-50'
+                                  : 'border-gray-200 bg-white',
                             ]"
                             @click="selectLunchOption(option.id)"
                         >
@@ -197,6 +289,88 @@ const cancelCreate = () => {
                         <p class="text-sm mt-1">
                             Klikk på et annet alternativ for å endre ditt valg
                         </p>
+                    </div>
+                </div>
+                <!-- This section is now used for Ukens Kantinemeny, but it's not present in the final image you provided -->
+                <div class="flex flex-col bg-white p-6 rounded-md w-1/4">
+                    <div class="mb-6">
+                        <div class="flex items-center gap-2 mb-1">
+                            <Utensils class="w-5 h-5 text-gray-800" />
+                            <h1 class="text-2xl font-bold text-gray-800">
+                                Kantinemeny
+                            </h1>
+                        </div>
+                        <p class="text-gray-500 text-sm">
+                            Se hva som serveres i kantina
+                        </p>
+                    </div>
+
+                    <div class="flex flex-col gap-4">
+                        <div
+                            v-for="(item, idx) in isEditingMenu ? editableMenu : canteenMenu"
+                            :key="isEditingMenu ? idx : item.day"
+                            :class="[
+                                'rounded-lg p-4 flex flex-col gap-1.5 shadow-sm',
+                                item.highlighted
+                                    ? 'bg-blue-50 border border-blue-500'
+                                    : 'bg-white border border-gray-200',
+                            ]"
+                        >
+                            <template v-if="isEditingMenu">
+                                <div class="mb-1 p-1 font-semibold text-gray-700">
+                                    {{ item.day }}
+                                </div>
+                                <input
+                                    v-model="item.meal"
+                                    class="mb-1 p-1 border rounded"
+                                    placeholder="Måltid"
+                                />
+                                <input
+                                    v-model="item.description"
+                                    class="p-1 border rounded"
+                                    placeholder="Beskrivelse"
+                                />
+                            </template>
+                            <template v-else>
+                                <h3 class="font-semibold text-md leading-tight">
+                                    <span class="whitespace-nowrap text-blue-700">
+                                        {{ item.day }}:
+                                    </span>
+                                                        <span
+                                                            :class="[
+                                            item.highlighted ? 'text-blue-700' : 'text-gray-900',
+                                        ]"
+                                                        >
+                                        {{ item.meal }}
+                                    </span>
+                                </h3>
+                                <p class="text-gray-700 text-sm">
+                                    {{ item.description }}
+                                </p>
+                            </template>
+                        </div>
+                    </div>
+
+                    <button
+                        v-if="!isEditingMenu"
+                        class="mt-6 w-full py-3 px-4 bg-white border border-gray-300 rounded-md text-gray-800 font-medium hover:bg-gray-50 transition-colors duration-200"
+                        @click="startEditMenu"
+                    >
+                        Oppdater meny
+                    </button>
+                    <div v-else class="flex gap-2 mt-6">
+                        <button
+                            class="py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-700"
+                            @click="saveMenu"
+                        >
+                            Lagre
+                        </button>
+                        <button
+                            class="py-2 px-4 bg-gray-200 text-gray-800 rounded hover:bg-gray-300"
+                            @click="cancelEditMenu"
+                        >
+                            Avbryt
+                        </button>
                     </div>
                 </div>
             </div>

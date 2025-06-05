@@ -15850,7 +15850,7 @@ const _hoisted_2 = { class: "flex flex-col max-w-7xl mx-auto gap-8 px-4 sm:px-6 
 const _hoisted_3 = { class: "flex flex-col w-full gap-2 p-6 bg-white rounded-md drop-shadow-xs" };
 const _hoisted_4 = { class: "text-2xl font-semibold" };
 const _hoisted_5 = { class: "text-sm text-gray-500" };
-const _hoisted_6 = { class: "flex w-full" };
+const _hoisted_6 = { class: "flex w-full gap-6" };
 const _hoisted_7 = { class: "flex flex-col bg-white p-6 rounded-md shadow-sm w-1/2" };
 const _hoisted_8 = { class: "flex justify-between items-center mb-6" };
 const _hoisted_9 = { class: "flex gap-2 items-center shrink-0" };
@@ -15871,6 +15871,20 @@ const _hoisted_16 = {
   class: "mt-6 bg-blue-50 border border-blue-200 text-blue-800 p-4 rounded-lg text-center"
 };
 const _hoisted_17 = { class: "font-semibold" };
+const _hoisted_18 = { class: "flex flex-col bg-white p-6 rounded-md w-1/4" };
+const _hoisted_19 = { class: "mb-6" };
+const _hoisted_20 = { class: "flex items-center gap-2 mb-1" };
+const _hoisted_21 = { class: "flex flex-col gap-4" };
+const _hoisted_22 = { class: "mb-1 p-1 font-semibold text-gray-700" };
+const _hoisted_23 = ["onUpdate:modelValue"];
+const _hoisted_24 = ["onUpdate:modelValue"];
+const _hoisted_25 = { class: "font-semibold text-md leading-tight" };
+const _hoisted_26 = { class: "whitespace-nowrap text-blue-700" };
+const _hoisted_27 = { class: "text-gray-700 text-sm" };
+const _hoisted_28 = {
+  key: 1,
+  class: "flex gap-2 mt-6"
+};
 const _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "frontPage",
   props: {
@@ -15880,7 +15894,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
     },
     description: {
       type: String,
-      default: "Her kan du enkelt koordinere lunsjen i lokalene våre. Registrer deg for dagens lunsj, legg til ønsker på innkjøpslisten, og hold oversikt over hvem som handler og hvor Kiwikortet er."
+      default: "Her kan you enkelt koordinere lunsjen i lokalene våre. Registrer deg for dagens lunsj, legg til ønsker på innkjøpslisten, og hold oversikt over hvem som handler og hvor Kiwikortet er."
     }
   },
   setup(__props) {
@@ -15957,6 +15971,83 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
         description: ""
       };
     };
+    const canteenMenu = ref([
+      {
+        day: "Mandag",
+        meal: "Taco",
+        description: "Med kjøtt, salat og tilbehør",
+        highlighted: false
+      },
+      {
+        day: "Tirsdag",
+        meal: "Indrefilet",
+        description: "Med potetmos og grønnsaker",
+        highlighted: false
+      },
+      {
+        day: "Onsdag",
+        meal: "Kylling Tikka Masala",
+        description: "Med basmatiris og nanbrød",
+        highlighted: true
+      },
+      {
+        day: "Torsdag",
+        meal: "Fiskegrateng",
+        description: "Med salat og brød",
+        highlighted: false
+      },
+      {
+        day: "Fredag",
+        meal: "Pizza",
+        description: "Dagens pizza med salat",
+        highlighted: false
+      }
+    ]);
+    function getTodayName() {
+      const days = ["Søndag", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag"];
+      const today = (/* @__PURE__ */ new Date()).getDay();
+      return days[today];
+    }
+    function updateMenuForToday() {
+      const todayName = getTodayName();
+      const menu = canteenMenu.value;
+      menu.forEach((item) => {
+        const originalDayName = item.day.replace("I dag: ", "");
+        if (originalDayName === todayName || item.day.startsWith("I dag")) {
+          item.highlighted = true;
+          item.day = "I dag";
+        } else {
+          const originalEntry = canteenMenu.value.find(
+            (original) => original.meal === item.meal && original.description === item.description
+          );
+          if (originalEntry && item.day !== originalEntry.day) {
+            item.day = originalEntry.day;
+          }
+          item.highlighted = false;
+        }
+      });
+      const todayIndex = menu.findIndex((item) => item.day === "I dag");
+      if (todayIndex !== -1 && todayIndex > 0) {
+        const [todayItem] = menu.splice(todayIndex, 1);
+        menu.unshift(todayItem);
+      }
+    }
+    onMounted(() => {
+      updateMenuForToday();
+    });
+    const isEditingMenu = ref(false);
+    const editableMenu = ref([]);
+    function startEditMenu() {
+      editableMenu.value = canteenMenu.value.map((item) => ({ ...item }));
+      isEditingMenu.value = true;
+    }
+    function saveMenu() {
+      canteenMenu.value = editableMenu.value.map((item) => ({ ...item }));
+      isEditingMenu.value = false;
+    }
+    function cancelEditMenu() {
+      isEditingMenu.value = false;
+    }
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock("div", _hoisted_1, [
         createBaseVNode("div", _hoisted_2, [
@@ -15989,8 +16080,8 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
                   return openBlock(), createElementBlock("div", {
                     key: option.id,
                     class: normalizeClass([
-                      "bg-white border rounded-lg p-5 shadow-sm w-fit cursor-pointer transition-all duration-200 ease-in-out hover:shadow-lg hover:-translate-y-0.5",
-                      option.selected ? "border-blue-500 ring-2 ring-blue-200" : "border-gray-200"
+                      " border rounded-lg p-5 shadow-sm w-fit cursor-pointer transition-all duration-200 ease-in-out hover:shadow-lg hover:-translate-y-0.5",
+                      option.selected ? "border-blue-500 ring-2 ring-blue-200 bg-blue-50" : "border-gray-200 bg-white"
                     ]),
                     onClick: ($event) => selectLunchOption(option.id)
                   }, [
@@ -16032,6 +16123,68 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
                 createBaseVNode("span", _hoisted_17, toDisplayString(selectedLunchOption.value.name), 1),
                 _cache[7] || (_cache[7] = createBaseVNode("p", { class: "text-sm mt-1" }, " Klikk på et annet alternativ for å endre ditt valg ", -1))
               ])) : createCommentVNode("", true)
+            ]),
+            createBaseVNode("div", _hoisted_18, [
+              createBaseVNode("div", _hoisted_19, [
+                createBaseVNode("div", _hoisted_20, [
+                  createVNode(unref(Utensils), { class: "w-5 h-5 text-gray-800" }),
+                  _cache[8] || (_cache[8] = createBaseVNode("h1", { class: "text-2xl font-bold text-gray-800" }, " Kantinemeny ", -1))
+                ]),
+                _cache[9] || (_cache[9] = createBaseVNode("p", { class: "text-gray-500 text-sm" }, " Se hva som serveres i kantina ", -1))
+              ]),
+              createBaseVNode("div", _hoisted_21, [
+                (openBlock(true), createElementBlock(Fragment, null, renderList(isEditingMenu.value ? editableMenu.value : canteenMenu.value, (item, idx) => {
+                  return openBlock(), createElementBlock("div", {
+                    key: isEditingMenu.value ? idx : item.day,
+                    class: normalizeClass([
+                      "rounded-lg p-4 flex flex-col gap-1.5 shadow-sm",
+                      item.highlighted ? "bg-blue-50 border border-blue-500" : "bg-white border border-gray-200"
+                    ])
+                  }, [
+                    isEditingMenu.value ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
+                      createBaseVNode("div", _hoisted_22, toDisplayString(item.day), 1),
+                      withDirectives(createBaseVNode("input", {
+                        "onUpdate:modelValue": ($event) => item.meal = $event,
+                        class: "mb-1 p-1 border rounded",
+                        placeholder: "Måltid"
+                      }, null, 8, _hoisted_23), [
+                        [vModelText, item.meal]
+                      ]),
+                      withDirectives(createBaseVNode("input", {
+                        "onUpdate:modelValue": ($event) => item.description = $event,
+                        class: "p-1 border rounded",
+                        placeholder: "Beskrivelse"
+                      }, null, 8, _hoisted_24), [
+                        [vModelText, item.description]
+                      ])
+                    ], 64)) : (openBlock(), createElementBlock(Fragment, { key: 1 }, [
+                      createBaseVNode("h3", _hoisted_25, [
+                        createBaseVNode("span", _hoisted_26, toDisplayString(item.day) + ": ", 1),
+                        createBaseVNode("span", {
+                          class: normalizeClass([
+                            item.highlighted ? "text-blue-700" : "text-gray-900"
+                          ])
+                        }, toDisplayString(item.meal), 3)
+                      ]),
+                      createBaseVNode("p", _hoisted_27, toDisplayString(item.description), 1)
+                    ], 64))
+                  ], 2);
+                }), 128))
+              ]),
+              !isEditingMenu.value ? (openBlock(), createElementBlock("button", {
+                key: 0,
+                class: "mt-6 w-full py-3 px-4 bg-white border border-gray-300 rounded-md text-gray-800 font-medium hover:bg-gray-50 transition-colors duration-200",
+                onClick: startEditMenu
+              }, " Oppdater meny ")) : (openBlock(), createElementBlock("div", _hoisted_28, [
+                createBaseVNode("button", {
+                  class: "py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-700",
+                  onClick: saveMenu
+                }, " Lagre "),
+                createBaseVNode("button", {
+                  class: "py-2 px-4 bg-gray-200 text-gray-800 rounded hover:bg-gray-300",
+                  onClick: cancelEditMenu
+                }, " Avbryt ")
+              ]))
             ])
           ])
         ])
