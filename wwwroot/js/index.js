@@ -15696,18 +15696,6 @@ function compileToFunction(template, options) {
   return compileCache[key] = render2;
 }
 registerRuntimeCompiler(compileToFunction);
-const _hoisted_1$1 = { class: "flex flex-col items-center justify-center text-center w-full px-10 py-6" };
-const _sfc_main$1 = /* @__PURE__ */ defineComponent({
-  __name: "VueButton",
-  setup(__props) {
-    console.log("Button");
-    return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("div", _hoisted_1$1, _cache[0] || (_cache[0] = [
-        createBaseVNode("h1", { class: "grid grid-cols-5 gap-4 px-20" }, "Hello", -1)
-      ]));
-    };
-  }
-});
 /**
  * @license lucide-vue-next v0.513.0 - ISC
  *
@@ -15806,20 +15794,20 @@ const Users = createLucideIcon("users", [
   ["path", { d: "M22 21v-2a4 4 0 0 0-3-3.87", key: "kshegd" }],
   ["circle", { cx: "9", cy: "7", r: "4", key: "nufk8" }]
 ]);
-const _hoisted_1 = { className: "bg-white shadow-sm border-b" };
-const _hoisted_2 = { className: "flex-col gap-4  sm:flex-row md:max-w-7xl flex items-center justify-between mx-auto px-4 sm:px-6 lg:px-8 py-4" };
-const _hoisted_3 = { className: "flex items-center space-x-3" };
-const _hoisted_4 = { className: "bg-blue-600 p-2 rounded-lg" };
-const _hoisted_5 = { className: "flex items-center space-x-2 text-md text-gray-600" };
-const _sfc_main = /* @__PURE__ */ defineComponent({
+const _hoisted_1$1 = { className: "bg-white shadow-lg" };
+const _hoisted_2$1 = { className: "flex-col gap-4  sm:flex-row md:max-w-7xl flex items-center justify-between mx-auto px-4 sm:px-6 lg:px-8 py-4" };
+const _hoisted_3$1 = { className: "flex items-center space-x-3" };
+const _hoisted_4$1 = { className: "bg-blue-600 p-2 rounded-lg" };
+const _hoisted_5$1 = { className: "flex items-center space-x-2 text-md text-gray-600" };
+const _sfc_main$1 = /* @__PURE__ */ defineComponent({
   __name: "Header",
   setup(__props) {
     let today = /* @__PURE__ */ new Date();
     return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("header", _hoisted_1, [
-        createBaseVNode("div", _hoisted_2, [
-          createBaseVNode("div", _hoisted_3, [
-            createBaseVNode("div", _hoisted_4, [
+      return openBlock(), createElementBlock("header", _hoisted_1$1, [
+        createBaseVNode("div", _hoisted_2$1, [
+          createBaseVNode("div", _hoisted_3$1, [
+            createBaseVNode("div", _hoisted_4$1, [
               createVNode(unref(Users), { color: "white" })
             ]),
             _cache[0] || (_cache[0] = createBaseVNode("div", null, [
@@ -15827,7 +15815,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
               createBaseVNode("p", { className: "text-sm text-gray-600" }, "Crayon Consulting Innlandet")
             ], -1))
           ]),
-          createBaseVNode("div", _hoisted_5, [
+          createBaseVNode("div", _hoisted_5$1, [
             createVNode(unref(Calendar), { color: "gray" }),
             createBaseVNode("p", null, toDisplayString(unref(today).toLocaleDateString("no-NO", { weekday: "long", year: "numeric", month: "long", day: "numeric" })), 1)
           ])
@@ -15836,8 +15824,38 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
     };
   }
 });
-console.log("Hello World");
+const _hoisted_1 = { class: "w-full h-full bg-[#e8efff]" };
+const _hoisted_2 = { class: "flex max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" };
+const _hoisted_3 = { class: "flex flex-col w-full gap-2 p-6 bg-white rounded-md drop-shadow-xs" };
+const _hoisted_4 = { class: "text-2xl font-semibold" };
+const _hoisted_5 = { class: "text-sm text-gray-500" };
+const _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: "frontPage",
+  props: {
+    title: {
+      type: String,
+      default: "Velkommen til lunsjassistenten! 🍽️"
+    },
+    description: {
+      type: String,
+      default: "Her kan du enkelt koordinere lunsjen i lokalene våre. Registrer deg for dagens lunsj, legg til ønsker på innkjøpslisten, og hold oversikt over hvem som handler og hvor Kiwikortet er."
+    }
+  },
+  setup(__props) {
+    const props = __props;
+    return (_ctx, _cache) => {
+      return openBlock(), createElementBlock("div", _hoisted_1, [
+        createBaseVNode("div", _hoisted_2, [
+          createBaseVNode("div", _hoisted_3, [
+            createBaseVNode("h1", _hoisted_4, toDisplayString(props.title), 1),
+            createBaseVNode("p", _hoisted_5, toDisplayString(props.description), 1)
+          ])
+        ])
+      ]);
+    };
+  }
+});
 const app = createApp({});
-app.component("FfVueButton", _sfc_main$1);
-app.component("FfHeader", _sfc_main);
+app.component("FfHeader", _sfc_main$1);
+app.component("FfFrontPage", _sfc_main);
 app.mount("#app");

@@ -33,6 +33,20 @@ namespace ApprenticeshipExam.Models.Pages;
 public class StartPage : SitePageData
 {
     [Display(
+        Name = "Title",
+        Description = "The title of desccription.",
+        GroupName = SystemTabNames.Content,
+        Order = 10)]
+    public virtual string Title { get; set; }
+    
+    [Display(
+        Name = "Description",
+        Description = "The description of the start page",
+        GroupName = SystemTabNames.Content,
+        Order = 20)]
+    public virtual string Description { get; set; }
+    
+    [Display(
         GroupName = SystemTabNames.Content,
         Order = 320)]
     [CultureSpecific]
