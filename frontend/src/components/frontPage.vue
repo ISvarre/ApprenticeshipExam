@@ -1,5 +1,5 @@
 ﻿<script setup lang="ts">
-import { Utensils, Plus } from "lucide-vue-next";
+import { Utensils, Plus, CreditCard, X } from "lucide-vue-next";
 import { ref, computed, watch, onMounted } from 'vue';
 
 const props = defineProps({
@@ -37,7 +37,7 @@ const newLunchOption = ref({
     description: '',
 });
 
-const selectedLunchOptionId = ref<number | null>(2);
+const selectedLunchOptionId = ref<number | null>(null);
 
 const selectedLunchOption = computed(() => {
     return lunchOptions.value.find(
@@ -139,16 +139,12 @@ function updateMenuForToday() {
     const todayName = getTodayName();
     const menu = canteenMenu.value;
     menu.forEach(item => {
-        // Find the correct day in `canteenMenu`
-        const originalDayName = item.day.replace('I dag: ', ''); // Remove 'I dag: ' prefix for comparison
+        const originalDayName = item.day.replace('I dag: ', '');
 
-        // Check if the current item's original day name matches today's name
-        // or if it's already marked as 'I dag' (from a previous run perhaps)
         if (originalDayName === todayName || item.day.startsWith('I dag')) {
             item.highlighted = true;
-            item.day = 'I dag'; // Set 'I dag' for the highlighted item
+            item.day = 'I dag';
         } else {
-            // Reset day to original day name if not today and not already original
             const originalEntry = canteenMenu.value.find(
                 (original) => original.meal === item.meal && original.description === item.description
             );
@@ -159,9 +155,8 @@ function updateMenuForToday() {
         }
     });
 
-    // Move today's item to the top
     const todayIndex = menu.findIndex(item => item.day === 'I dag');
-    if (todayIndex !== -1 && todayIndex > 0) { // Check for -1 (not found) and if it's not already at the top
+    if (todayIndex !== -1 && todayIndex > 0) {
         const [todayItem] = menu.splice(todayIndex, 1);
         menu.unshift(todayItem);
     }
@@ -188,10 +183,31 @@ function saveMenu() {
 function cancelEditMenu() {
     isEditingMenu.value = false;
 }
+
+const lunchSummary = computed(() => {
+    const summary: { name: string; people: number }[] = [];
+    const otherSuggestions: { name: string; people: number }[] = [];
+
+    // Filter out "Kantina" and "Lokalet" and group others
+    lunchOptions.value.forEach(option => {
+        if (option.name === 'Kantina' || option.name === 'Lokalet') {
+            summary.push({ name: option.name, people: option.people });
+        } else {
+            otherSuggestions.push({ name: option.name, people: option.people });
+        }
+    });
+
+    return {
+        mainOptions: summary,
+        otherSuggestions: otherSuggestions,
+    };
+});
+
+const kiwiCardStatus = ref(true);
 </script>
 
 <template>
-    <div class="w-full h-full bg-[#e8efff] py-8">
+    <div class="w-full min-h-screen bg-[#e8efff] py-8">
         <div class="flex flex-col max-w-7xl mx-auto gap-8 px-4 sm:px-6 lg:px-8">
             <!-- Welcome Section -->
             <div class="flex flex-col w-full gap-2 p-6 bg-white rounded-md drop-shadow-xs">
@@ -200,7 +216,7 @@ function cancelEditMenu() {
             </div>
 
             <div class="flex w-full gap-6">
-                <div class="flex flex-col bg-white p-6 rounded-md shadow-sm w-1/2">
+                <div class="flex flex-col h-fit bg-white p-6 rounded-md shadow-sm w-1/2">
                     <div class="flex justify-between items-center mb-6">
                         <div>
                             <div class="flex gap-2 items-center shrink-0">
@@ -291,12 +307,11 @@ function cancelEditMenu() {
                         </p>
                     </div>
                 </div>
-                <!-- This section is now used for Ukens Kantinemeny, but it's not present in the final image you provided -->
                 <div class="flex flex-col bg-white p-6 rounded-md w-1/4">
                     <div class="mb-6">
                         <div class="flex items-center gap-2 mb-1">
                             <Utensils class="w-5 h-5 text-gray-800" />
-                            <h1 class="text-2xl font-bold text-gray-800">
+                            <h1 class="text-2xl font-semibold text-gray-800">
                                 Kantinemeny
                             </h1>
                         </div>
@@ -336,11 +351,9 @@ function cancelEditMenu() {
                                     <span class="whitespace-nowrap text-blue-700">
                                         {{ item.day }}:
                                     </span>
-                                                        <span
-                                                            :class="[
-                                            item.highlighted ? 'text-blue-700' : 'text-gray-900',
-                                        ]"
-                                                        >
+                                    <span
+                                        class="text-gray-900"
+                                    >
                                         {{ item.meal }}
                                     </span>
                                 </h3>
@@ -371,6 +384,84 @@ function cancelEditMenu() {
                         >
                             Avbryt
                         </button>
+                    </div>
+                </div>
+
+                <div class="flex flex-col h-fit w-1/4 gap-6">
+                    <div class="flex flex-col items-center h-fit bg-white p-6 rounded-md shadow-sm w-full gap-3">
+                        <div class="flex items-center justify-start gap-2 pb-2">
+                            <CreditCard class="w-6 h-6 text-black" />
+                            <h1 class="text-2xl font-semibold">Kiwikort Status </h1>
+                        </div>
+                        <div class="w-full flex justify-center">
+                            <div class="flex items-center justify-center rounded-full h-16 w-16 bg-green-200">
+                                <CreditCard class="w-8 h-8 text-green-700"></CreditCard>
+                            </div>
+                        </div>
+                        <div class="flex justify-center items-center bg-green-700 rounded-full">
+                            <p class="px-3 py-1 text-sm text-white">{{ kiwiCardStatus ? 'Tilgjengelig' : 'utilgjengelig' }}</p>
+                        </div>
+                        <p class="text-gray-700 text-sm">
+                            Kortet ligger på sin faste plass
+                        </p>
+                        <button type="button" class="w-full border-gray-500 border rounded-md font-semibold text-gray-700 text-md py-1"> Jeg tar kortet </button>
+                    </div>
+                    <div class="flex flex-col items-center h-fit bg-white p-6 rounded-md shadow-sm w-full gap-3">
+                        <div class="flex flex-col gap-1 border-b border-gray-400 pb-5">
+                            <h1 class="text-2xl font-semibold">Hvem handler i dag?</h1>
+                            <p class="text-sm text-gray-700 pb-5">
+                                Regitrer deg som innkjøpsansvarlig
+                            </p>
+                            <div class="flex bg-blue-50 justify-between p-2 rounded-md items-center w-full">
+                                <div class="flex flex-col">
+                                    <h2 class="text-md font-semibold">
+                                        Erik Hansen
+                                    </h2>
+                                    <p class="text-xs text-gray-700">Registrert 11:30 </p>
+                                </div>
+                                <X class="w-5 h-5 text-red-500" />
+                            </div>
+                        </div>
+                        <button type="button" class="bg-black p-2 w-full font-semibold text-md rounded-md text-white items-center">
+                            Jeg går på butikken
+                        </button>
+
+                    </div>
+                    <div class="flex flex-col h-fit bg-white p-6 rounded-md shadow-sm w-full">
+                        <h1 class="text-2xl font-semibold mb-6">Dagens oversikt</h1>
+
+                        <div class="flex flex-col gap-4">
+                            <div
+                                v-for="option in lunchSummary.mainOptions"
+                                :key="option.name"
+                                class="flex justify-between items-center pb-2 border-b border-gray-300 last:border-b-0"
+                            >
+                                <span class="text-md text-gray-800">{{ option.name }}:</span>
+                                <div
+                                    class="inline-block bg-gray-100 text-gray-800 text-xs font-medium px-3 py-1 rounded-full"
+                                >
+                                    {{ option.people }} personer
+                                </div>
+                            </div>
+
+                            <div v-if="lunchSummary.otherSuggestions.length > 0">
+                                <h2 class="text-lg font-bold text-gray-700 mt-4 mb-3">
+                                    Andre forslag:
+                                </h2>
+                                <div
+                                    v-for="option in lunchSummary.otherSuggestions"
+                                    :key="option.name"
+                                    class="flex justify-between items-center pb-2 border-b border-gray-300 last:border-b-0"
+                                >
+                                    <span class="text-lg text-gray-800">{{ option.name }}:</span>
+                                    <div
+                                        class="inline-block bg-gray-100 text-gray-800 text-xs font-medium px-3 py-1 rounded-full"
+                                    >
+                                        {{ option.people }} personer
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

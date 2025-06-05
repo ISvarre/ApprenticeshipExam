@@ -15788,6 +15788,16 @@ const Calendar = createLucideIcon("calendar", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
+const CreditCard = createLucideIcon("credit-card", [
+  ["rect", { width: "20", height: "14", x: "2", y: "5", rx: "2", key: "ynyp8z" }],
+  ["line", { x1: "2", x2: "22", y1: "10", y2: "10", key: "1b3vmo" }]
+]);
+/**
+ * @license lucide-vue-next v0.513.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
 const Plus = createLucideIcon("plus", [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "M12 5v14", key: "s699le" }]
@@ -15814,6 +15824,16 @@ const Utensils = createLucideIcon("utensils", [
   ["path", { d: "M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2", key: "cjf0a3" }],
   ["path", { d: "M7 2v20", key: "1473qp" }],
   ["path", { d: "M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7", key: "j28e5" }]
+]);
+/**
+ * @license lucide-vue-next v0.513.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const X = createLucideIcon("x", [
+  ["path", { d: "M18 6 6 18", key: "1bl5f8" }],
+  ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
 ]);
 const _hoisted_1$1 = { className: "bg-white shadow-lg" };
 const _hoisted_2$1 = { className: "flex-col gap-4  sm:flex-row md:max-w-7xl flex items-center justify-between mx-auto px-4 sm:px-6 lg:px-8 py-4" };
@@ -15845,13 +15865,13 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _hoisted_1 = { class: "w-full h-full bg-[#e8efff] py-8" };
+const _hoisted_1 = { class: "w-full min-h-screen bg-[#e8efff] py-8" };
 const _hoisted_2 = { class: "flex flex-col max-w-7xl mx-auto gap-8 px-4 sm:px-6 lg:px-8" };
 const _hoisted_3 = { class: "flex flex-col w-full gap-2 p-6 bg-white rounded-md drop-shadow-xs" };
 const _hoisted_4 = { class: "text-2xl font-semibold" };
 const _hoisted_5 = { class: "text-sm text-gray-500" };
 const _hoisted_6 = { class: "flex w-full gap-6" };
-const _hoisted_7 = { class: "flex flex-col bg-white p-6 rounded-md shadow-sm w-1/2" };
+const _hoisted_7 = { class: "flex flex-col h-fit bg-white p-6 rounded-md shadow-sm w-1/2" };
 const _hoisted_8 = { class: "flex justify-between items-center mb-6" };
 const _hoisted_9 = { class: "flex gap-2 items-center shrink-0" };
 const _hoisted_10 = {
@@ -15880,11 +15900,29 @@ const _hoisted_23 = ["onUpdate:modelValue"];
 const _hoisted_24 = ["onUpdate:modelValue"];
 const _hoisted_25 = { class: "font-semibold text-md leading-tight" };
 const _hoisted_26 = { class: "whitespace-nowrap text-blue-700" };
-const _hoisted_27 = { class: "text-gray-700 text-sm" };
-const _hoisted_28 = {
+const _hoisted_27 = { class: "text-gray-900" };
+const _hoisted_28 = { class: "text-gray-700 text-sm" };
+const _hoisted_29 = {
   key: 1,
   class: "flex gap-2 mt-6"
 };
+const _hoisted_30 = { class: "flex flex-col h-fit w-1/4 gap-6" };
+const _hoisted_31 = { class: "flex flex-col items-center h-fit bg-white p-6 rounded-md shadow-sm w-full gap-3" };
+const _hoisted_32 = { class: "flex items-center justify-start gap-2 pb-2" };
+const _hoisted_33 = { class: "w-full flex justify-center" };
+const _hoisted_34 = { class: "flex items-center justify-center rounded-full h-16 w-16 bg-green-200" };
+const _hoisted_35 = { class: "flex justify-center items-center bg-green-700 rounded-full" };
+const _hoisted_36 = { class: "px-3 py-1 text-sm text-white" };
+const _hoisted_37 = { class: "flex flex-col items-center h-fit bg-white p-6 rounded-md shadow-sm w-full gap-3" };
+const _hoisted_38 = { class: "flex flex-col gap-1 border-b border-gray-400 pb-5" };
+const _hoisted_39 = { class: "flex bg-blue-50 justify-between p-2 rounded-md items-center w-full" };
+const _hoisted_40 = { class: "flex flex-col h-fit bg-white p-6 rounded-md shadow-sm w-full" };
+const _hoisted_41 = { class: "flex flex-col gap-4" };
+const _hoisted_42 = { class: "text-md text-gray-800" };
+const _hoisted_43 = { class: "inline-block bg-gray-100 text-gray-800 text-xs font-medium px-3 py-1 rounded-full" };
+const _hoisted_44 = { key: 0 };
+const _hoisted_45 = { class: "text-lg text-gray-800" };
+const _hoisted_46 = { class: "inline-block bg-gray-100 text-gray-800 text-xs font-medium px-3 py-1 rounded-full" };
 const _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "frontPage",
   props: {
@@ -15920,7 +15958,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
       name: "",
       description: ""
     });
-    const selectedLunchOptionId = ref(2);
+    const selectedLunchOptionId = ref(null);
     const selectedLunchOption = computed(() => {
       return lunchOptions.value.find(
         (option) => option.id === selectedLunchOptionId.value
@@ -16048,6 +16086,22 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
     function cancelEditMenu() {
       isEditingMenu.value = false;
     }
+    const lunchSummary = computed(() => {
+      const summary = [];
+      const otherSuggestions = [];
+      lunchOptions.value.forEach((option) => {
+        if (option.name === "Kantina" || option.name === "Lokalet") {
+          summary.push({ name: option.name, people: option.people });
+        } else {
+          otherSuggestions.push({ name: option.name, people: option.people });
+        }
+      });
+      return {
+        mainOptions: summary,
+        otherSuggestions
+      };
+    });
+    const kiwiCardStatus = ref(true);
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock("div", _hoisted_1, [
         createBaseVNode("div", _hoisted_2, [
@@ -16128,7 +16182,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
               createBaseVNode("div", _hoisted_19, [
                 createBaseVNode("div", _hoisted_20, [
                   createVNode(unref(Utensils), { class: "w-5 h-5 text-gray-800" }),
-                  _cache[8] || (_cache[8] = createBaseVNode("h1", { class: "text-2xl font-bold text-gray-800" }, " Kantinemeny ", -1))
+                  _cache[8] || (_cache[8] = createBaseVNode("h1", { class: "text-2xl font-semibold text-gray-800" }, " Kantinemeny ", -1))
                 ]),
                 _cache[9] || (_cache[9] = createBaseVNode("p", { class: "text-gray-500 text-sm" }, " Se hva som serveres i kantina ", -1))
               ]),
@@ -16160,13 +16214,9 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
                     ], 64)) : (openBlock(), createElementBlock(Fragment, { key: 1 }, [
                       createBaseVNode("h3", _hoisted_25, [
                         createBaseVNode("span", _hoisted_26, toDisplayString(item.day) + ": ", 1),
-                        createBaseVNode("span", {
-                          class: normalizeClass([
-                            item.highlighted ? "text-blue-700" : "text-gray-900"
-                          ])
-                        }, toDisplayString(item.meal), 3)
+                        createBaseVNode("span", _hoisted_27, toDisplayString(item.meal), 1)
                       ]),
-                      createBaseVNode("p", _hoisted_27, toDisplayString(item.description), 1)
+                      createBaseVNode("p", _hoisted_28, toDisplayString(item.description), 1)
                     ], 64))
                   ], 2);
                 }), 128))
@@ -16175,7 +16225,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
                 key: 0,
                 class: "mt-6 w-full py-3 px-4 bg-white border border-gray-300 rounded-md text-gray-800 font-medium hover:bg-gray-50 transition-colors duration-200",
                 onClick: startEditMenu
-              }, " Oppdater meny ")) : (openBlock(), createElementBlock("div", _hoisted_28, [
+              }, " Oppdater meny ")) : (openBlock(), createElementBlock("div", _hoisted_29, [
                 createBaseVNode("button", {
                   class: "py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-700",
                   onClick: saveMenu
@@ -16185,6 +16235,70 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
                   onClick: cancelEditMenu
                 }, " Avbryt ")
               ]))
+            ]),
+            createBaseVNode("div", _hoisted_30, [
+              createBaseVNode("div", _hoisted_31, [
+                createBaseVNode("div", _hoisted_32, [
+                  createVNode(unref(CreditCard), { class: "w-6 h-6 text-black" }),
+                  _cache[10] || (_cache[10] = createBaseVNode("h1", { class: "text-2xl font-semibold" }, "Kiwikort Status ", -1))
+                ]),
+                createBaseVNode("div", _hoisted_33, [
+                  createBaseVNode("div", _hoisted_34, [
+                    createVNode(unref(CreditCard), { class: "w-8 h-8 text-green-700" })
+                  ])
+                ]),
+                createBaseVNode("div", _hoisted_35, [
+                  createBaseVNode("p", _hoisted_36, toDisplayString(kiwiCardStatus.value ? "Tilgjengelig" : "utilgjengelig"), 1)
+                ]),
+                _cache[11] || (_cache[11] = createBaseVNode("p", { class: "text-gray-700 text-sm" }, " Kortet ligger på sin faste plass ", -1)),
+                _cache[12] || (_cache[12] = createBaseVNode("button", {
+                  type: "button",
+                  class: "w-full border-gray-500 border rounded-md font-semibold text-gray-700 text-md py-1"
+                }, " Jeg tar kortet ", -1))
+              ]),
+              createBaseVNode("div", _hoisted_37, [
+                createBaseVNode("div", _hoisted_38, [
+                  _cache[14] || (_cache[14] = createBaseVNode("h1", { class: "text-2xl font-semibold" }, "Hvem handler i dag?", -1)),
+                  _cache[15] || (_cache[15] = createBaseVNode("p", { class: "text-sm text-gray-700 pb-5" }, " Regitrer deg som innkjøpsansvarlig ", -1)),
+                  createBaseVNode("div", _hoisted_39, [
+                    _cache[13] || (_cache[13] = createBaseVNode("div", { class: "flex flex-col" }, [
+                      createBaseVNode("h2", { class: "text-md font-semibold" }, " Erik Hansen "),
+                      createBaseVNode("p", { class: "text-xs text-gray-700" }, "Registrert 11:30 ")
+                    ], -1)),
+                    createVNode(unref(X), { class: "w-5 h-5 text-red-500" })
+                  ])
+                ]),
+                _cache[16] || (_cache[16] = createBaseVNode("button", {
+                  type: "button",
+                  class: "bg-black p-2 w-full font-semibold text-md rounded-md text-white items-center"
+                }, " Jeg går på butikken ", -1))
+              ]),
+              createBaseVNode("div", _hoisted_40, [
+                _cache[18] || (_cache[18] = createBaseVNode("h1", { class: "text-2xl font-semibold mb-6" }, "Dagens oversikt", -1)),
+                createBaseVNode("div", _hoisted_41, [
+                  (openBlock(true), createElementBlock(Fragment, null, renderList(lunchSummary.value.mainOptions, (option) => {
+                    return openBlock(), createElementBlock("div", {
+                      key: option.name,
+                      class: "flex justify-between items-center pb-2 border-b border-gray-300 last:border-b-0"
+                    }, [
+                      createBaseVNode("span", _hoisted_42, toDisplayString(option.name) + ":", 1),
+                      createBaseVNode("div", _hoisted_43, toDisplayString(option.people) + " personer ", 1)
+                    ]);
+                  }), 128)),
+                  lunchSummary.value.otherSuggestions.length > 0 ? (openBlock(), createElementBlock("div", _hoisted_44, [
+                    _cache[17] || (_cache[17] = createBaseVNode("h2", { class: "text-lg font-bold text-gray-700 mt-4 mb-3" }, " Andre forslag: ", -1)),
+                    (openBlock(true), createElementBlock(Fragment, null, renderList(lunchSummary.value.otherSuggestions, (option) => {
+                      return openBlock(), createElementBlock("div", {
+                        key: option.name,
+                        class: "flex justify-between items-center pb-2 border-b border-gray-300 last:border-b-0"
+                      }, [
+                        createBaseVNode("span", _hoisted_45, toDisplayString(option.name) + ":", 1),
+                        createBaseVNode("div", _hoisted_46, toDisplayString(option.people) + " personer ", 1)
+                      ]);
+                    }), 128))
+                  ])) : createCommentVNode("", true)
+                ])
+              ])
             ])
           ])
         ])

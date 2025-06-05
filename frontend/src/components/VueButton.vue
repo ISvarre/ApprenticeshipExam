@@ -144,7 +144,7 @@ const updateTodayDay = () => {
 </script>
 
 <template>
-    <div class="flex flex-col bg-white w-full p-6 rounded-md shadow-sm">
+    <div class="flex flex-col bg-white w-full p-6 rounded-md shadow-sm min-h-screen">
         <!-- Header -->
         <div class="flex items-center gap-2 mb-2 shrink-0">
             <Utensils class="w-5 h-5 text-gray-800" />
