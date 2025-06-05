@@ -15788,11 +15788,32 @@ const Calendar = createLucideIcon("calendar", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
+const Plus = createLucideIcon("plus", [
+  ["path", { d: "M5 12h14", key: "1ays0h" }],
+  ["path", { d: "M12 5v14", key: "s699le" }]
+]);
+/**
+ * @license lucide-vue-next v0.513.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
 const Users = createLucideIcon("users", [
   ["path", { d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2", key: "1yyitq" }],
   ["path", { d: "M16 3.128a4 4 0 0 1 0 7.744", key: "16gr8j" }],
   ["path", { d: "M22 21v-2a4 4 0 0 0-3-3.87", key: "kshegd" }],
   ["circle", { cx: "9", cy: "7", r: "4", key: "nufk8" }]
+]);
+/**
+ * @license lucide-vue-next v0.513.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const Utensils = createLucideIcon("utensils", [
+  ["path", { d: "M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2", key: "cjf0a3" }],
+  ["path", { d: "M7 2v20", key: "1473qp" }],
+  ["path", { d: "M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7", key: "j28e5" }]
 ]);
 const _hoisted_1$1 = { className: "bg-white shadow-lg" };
 const _hoisted_2$1 = { className: "flex-col gap-4  sm:flex-row md:max-w-7xl flex items-center justify-between mx-auto px-4 sm:px-6 lg:px-8 py-4" };
@@ -15824,11 +15845,32 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-const _hoisted_1 = { class: "w-full h-full bg-[#e8efff]" };
-const _hoisted_2 = { class: "flex max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" };
+const _hoisted_1 = { class: "w-full h-full bg-[#e8efff] py-8" };
+const _hoisted_2 = { class: "flex flex-col max-w-7xl mx-auto gap-8 px-4 sm:px-6 lg:px-8" };
 const _hoisted_3 = { class: "flex flex-col w-full gap-2 p-6 bg-white rounded-md drop-shadow-xs" };
 const _hoisted_4 = { class: "text-2xl font-semibold" };
 const _hoisted_5 = { class: "text-sm text-gray-500" };
+const _hoisted_6 = { class: "flex w-full" };
+const _hoisted_7 = { class: "flex flex-col bg-white p-6 rounded-md shadow-sm w-1/2" };
+const _hoisted_8 = { class: "flex justify-between items-center mb-6" };
+const _hoisted_9 = { class: "flex gap-2 items-center shrink-0" };
+const _hoisted_10 = {
+  key: 0,
+  class: "w-full max-w-full flex flex-wrap gap-5"
+};
+const _hoisted_11 = ["onClick"];
+const _hoisted_12 = { class: "text-xl font-bold text-gray-900 mb-2" };
+const _hoisted_13 = { class: "text-sm text-gray-700 mb-4" };
+const _hoisted_14 = { class: "inline-block bg-gray-100 text-gray-800 text-xs font-medium px-3 py-1 rounded-full" };
+const _hoisted_15 = {
+  key: 1,
+  class: "bg-white border border-gray-200 rounded-lg p-5 shadow-sm flex flex-col space-y-4"
+};
+const _hoisted_16 = {
+  key: 2,
+  class: "mt-6 bg-blue-50 border border-blue-200 text-blue-800 p-4 rounded-lg text-center"
+};
+const _hoisted_17 = { class: "font-semibold" };
 const _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "frontPage",
   props: {
@@ -15843,12 +15885,154 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
   },
   setup(__props) {
     const props = __props;
+    const lunchOptions = ref([
+      {
+        id: 1,
+        name: "Kantina",
+        description: "Dagens varme måltider",
+        people: 0,
+        selected: false
+      },
+      {
+        id: 2,
+        name: "Lokalet",
+        description: "Påsmurt og delt måltid",
+        people: 0,
+        selected: false
+      }
+    ]);
+    const showCreateForm = ref(false);
+    const newLunchOption = ref({
+      name: "",
+      description: ""
+    });
+    const selectedLunchOptionId = ref(2);
+    const selectedLunchOption = computed(() => {
+      return lunchOptions.value.find(
+        (option) => option.id === selectedLunchOptionId.value
+      );
+    });
+    const selectLunchOption = (id) => {
+      const currentSelected = lunchOptions.value.find((option) => option.selected);
+      const clickedOption = lunchOptions.value.find((option) => option.id === id);
+      if (!clickedOption) return;
+      if (clickedOption.selected) {
+        clickedOption.selected = false;
+        if (clickedOption.people > 0) clickedOption.people--;
+        selectedLunchOptionId.value = null;
+      } else {
+        if (currentSelected) {
+          currentSelected.selected = false;
+          if (currentSelected.people > 0) currentSelected.people--;
+        }
+        clickedOption.selected = true;
+        clickedOption.people++;
+        selectedLunchOptionId.value = id;
+      }
+    };
+    const addLunchOption = () => {
+      if (newLunchOption.value.name.trim()) {
+        const maxId = Math.max(...lunchOptions.value.map((o) => o.id));
+        const newId = maxId > 0 ? maxId + 1 : 1;
+        lunchOptions.value.push({
+          id: newId,
+          name: newLunchOption.value.name,
+          description: newLunchOption.value.description,
+          people: 0,
+          selected: false
+        });
+        newLunchOption.value = {
+          name: "",
+          description: ""
+        };
+        showCreateForm.value = false;
+      } else {
+        alert("Navn på sted er påkrevd!");
+      }
+    };
+    const cancelCreate = () => {
+      showCreateForm.value = false;
+      newLunchOption.value = {
+        name: "",
+        description: ""
+      };
+    };
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock("div", _hoisted_1, [
         createBaseVNode("div", _hoisted_2, [
           createBaseVNode("div", _hoisted_3, [
             createBaseVNode("h1", _hoisted_4, toDisplayString(props.title), 1),
             createBaseVNode("p", _hoisted_5, toDisplayString(props.description), 1)
+          ]),
+          createBaseVNode("div", _hoisted_6, [
+            createBaseVNode("div", _hoisted_7, [
+              createBaseVNode("div", _hoisted_8, [
+                createBaseVNode("div", null, [
+                  createBaseVNode("div", _hoisted_9, [
+                    createVNode(unref(Utensils), { class: "w-5 h-5 text-gray-800" }),
+                    _cache[3] || (_cache[3] = createBaseVNode("h1", { class: "text-2xl font-semibold text-gray-800" }, " Hvor spiser du lunsj i dag? ", -1))
+                  ]),
+                  _cache[4] || (_cache[4] = createBaseVNode("p", { class: "text-sm text-gray-500" }, " Velg ditt foretrukne lunsjsted for i dag ", -1))
+                ]),
+                !showCreateForm.value ? (openBlock(), createElementBlock("button", {
+                  key: 0,
+                  onClick: _cache[0] || (_cache[0] = ($event) => showCreateForm.value = true),
+                  type: "button",
+                  class: "justify-center gap-2 text-sm border border-gray-300 h-9 rounded-md px-3 flex items-center shrink-0 bg-white hover:bg-gray-50 transition-colors duration-200"
+                }, [
+                  createVNode(unref(Plus), { class: "w-4 h-4 inline" }),
+                  _cache[5] || (_cache[5] = createTextVNode(" Nytt forslag "))
+                ])) : createCommentVNode("", true)
+              ]),
+              !showCreateForm.value ? (openBlock(), createElementBlock("div", _hoisted_10, [
+                (openBlock(true), createElementBlock(Fragment, null, renderList(lunchOptions.value, (option) => {
+                  return openBlock(), createElementBlock("div", {
+                    key: option.id,
+                    class: normalizeClass([
+                      "bg-white border rounded-lg p-5 shadow-sm w-fit cursor-pointer transition-all duration-200 ease-in-out hover:shadow-lg hover:-translate-y-0.5",
+                      option.selected ? "border-blue-500 ring-2 ring-blue-200" : "border-gray-200"
+                    ]),
+                    onClick: ($event) => selectLunchOption(option.id)
+                  }, [
+                    createBaseVNode("h2", _hoisted_12, toDisplayString(option.name), 1),
+                    createBaseVNode("p", _hoisted_13, toDisplayString(option.description), 1),
+                    createBaseVNode("div", _hoisted_14, toDisplayString(option.people) + " personer ", 1)
+                  ], 10, _hoisted_11);
+                }), 128))
+              ])) : (openBlock(), createElementBlock("div", _hoisted_15, [
+                withDirectives(createBaseVNode("input", {
+                  type: "text",
+                  "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => newLunchOption.value.name = $event),
+                  placeholder: "Navn på sted...",
+                  class: "p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                }, null, 512), [
+                  [vModelText, newLunchOption.value.name]
+                ]),
+                withDirectives(createBaseVNode("textarea", {
+                  "onUpdate:modelValue": _cache[2] || (_cache[2] = ($event) => newLunchOption.value.description = $event),
+                  placeholder: "Kort beskrivelse...",
+                  rows: "3",
+                  class: "p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y"
+                }, null, 512), [
+                  [vModelText, newLunchOption.value.description]
+                ]),
+                createBaseVNode("div", { class: "flex justify-end space-x-3 mt-4" }, [
+                  createBaseVNode("button", {
+                    onClick: addLunchOption,
+                    class: "bg-blue-600 text-white py-2 px-5 rounded-md text-base font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  }, " Legg til forslag "),
+                  createBaseVNode("button", {
+                    onClick: cancelCreate,
+                    class: "bg-gray-200 text-gray-800 py-2 px-5 rounded-md text-base font-medium hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
+                  }, " Avbryt ")
+                ])
+              ])),
+              !showCreateForm.value && selectedLunchOption.value ? (openBlock(), createElementBlock("div", _hoisted_16, [
+                _cache[6] || (_cache[6] = createTextVNode(" Du har valgt: ")),
+                createBaseVNode("span", _hoisted_17, toDisplayString(selectedLunchOption.value.name), 1),
+                _cache[7] || (_cache[7] = createBaseVNode("p", { class: "text-sm mt-1" }, " Klikk på et annet alternativ for å endre ditt valg ", -1))
+              ])) : createCommentVNode("", true)
+            ])
           ])
         ])
       ]);
