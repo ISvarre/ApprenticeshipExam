@@ -1,5 +1,5 @@
 ﻿<script setup lang="ts">
-import { Utensils, Plus, CreditCard, X } from "lucide-vue-next";
+import { Utensils, Plus, CreditCard, X, ShoppingCart } from "lucide-vue-next";
 import { ref, computed, watch, onMounted } from 'vue';
 
 const props = defineProps({
@@ -20,6 +20,7 @@ const lunchOptions = ref([
         description: 'Dagens varme måltider',
         people: 0,
         selected: false,
+        // Removed additionalInfo
     },
     {
         id: 2,
@@ -27,6 +28,7 @@ const lunchOptions = ref([
         description: 'Påsmurt og delt måltid',
         people: 0,
         selected: false,
+        // Removed additionalInfo
     },
 ]);
 
@@ -188,7 +190,6 @@ const lunchSummary = computed(() => {
     const summary: { name: string; people: number }[] = [];
     const otherSuggestions: { name: string; people: number }[] = [];
 
-    // Filter out "Kantina" and "Lokalet" and group others
     lunchOptions.value.forEach(option => {
         if (option.name === 'Kantina' || option.name === 'Lokalet') {
             summary.push({ name: option.name, people: option.people });
@@ -204,12 +205,41 @@ const lunchSummary = computed(() => {
 });
 
 const kiwiCardStatus = ref(true);
+const shoppingResponsible = ref<{ name: string; time: string } | null>(null);
+
+const takeKiwiCard = () => {
+    kiwiCardStatus.value = false;
+};
+
+const returnKiwiCard = () => {
+    kiwiCardStatus.value = true;
+};
+
+const assignShopper = () => {
+    if (!shoppingResponsible.value) {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        shoppingResponsible.value = {
+            name: 'Ikke oppgitt',
+            time: `${hours}:${minutes}`
+        };
+    }
+};
+
+
+const removeShopper = () => {
+    shoppingResponsible.value = null;
+};
+
+const showShoppingRelatedBlocks = computed(() => {
+    return selectedLunchOption.value?.name === 'Lokalet';
+});
 </script>
 
 <template>
     <div class="w-full min-h-screen bg-[#e8efff] py-8">
         <div class="flex flex-col max-w-7xl mx-auto gap-8 px-4 sm:px-6 lg:px-8">
-            <!-- Welcome Section -->
             <div class="flex flex-col w-full gap-2 p-6 bg-white rounded-md drop-shadow-xs">
                 <h1 class="text-2xl font-semibold">{{ props.title }}</h1>
                 <p class="text-sm text-gray-500">{{ props.description }}</p>
@@ -306,6 +336,16 @@ const kiwiCardStatus = ref(true);
                             Klikk på et annet alternativ for å endre ditt valg
                         </p>
                     </div>
+
+                    <button
+                        v-if="showShoppingRelatedBlocks"
+                        onclick=" window.location.href = '/en/shoppinglist';"
+                        type="button"
+                        class="mt-6 w-full flex justify-center items-center gap-2 bg-green-600 text-white p-3 rounded-md font-semibold text-lg hover:bg-green-700 transition-colors duration-200"
+                    >
+                        <ShoppingCart class="w-5 h-5" />
+                        Gå til innkjøpsliste
+                    </button>
                 </div>
                 <div class="flex flex-col bg-white p-6 rounded-md w-1/4">
                     <div class="mb-6">
@@ -351,9 +391,7 @@ const kiwiCardStatus = ref(true);
                                     <span class="whitespace-nowrap text-blue-700">
                                         {{ item.day }}:
                                     </span>
-                                    <span
-                                        class="text-gray-900"
-                                    >
+                                    <span class='text-gray-900'>
                                         {{ item.meal }}
                                     </span>
                                 </h3>
@@ -388,44 +426,93 @@ const kiwiCardStatus = ref(true);
                 </div>
 
                 <div class="flex flex-col h-fit w-1/4 gap-6">
-                    <div class="flex flex-col items-center h-fit bg-white p-6 rounded-md shadow-sm w-full gap-3">
+                    <div
+                        v-if="showShoppingRelatedBlocks"
+                        class="flex flex-col items-center h-fit bg-white p-6 rounded-md shadow-sm w-full gap-3"
+                    >
                         <div class="flex items-center justify-start gap-2 pb-2">
                             <CreditCard class="w-6 h-6 text-black" />
-                            <h1 class="text-2xl font-semibold">Kiwikort Status </h1>
+                            <h1 class="text-2xl font-semibold">Kiwikort Status</h1>
                         </div>
                         <div class="w-full flex justify-center">
-                            <div class="flex items-center justify-center rounded-full h-16 w-16 bg-green-200">
-                                <CreditCard class="w-8 h-8 text-green-700"></CreditCard>
+                            <div
+                                :class="[
+                                    'flex items-center justify-center rounded-full h-16 w-16',
+                                    kiwiCardStatus ? 'bg-green-200' : 'bg-red-200'
+                                ]"
+                            >
+                                <CreditCard
+                                    :class="[
+                                        'w-8 h-8',
+                                        kiwiCardStatus ? 'text-green-700' : 'text-red-700'
+                                    ]"
+                                ></CreditCard>
                             </div>
                         </div>
-                        <div class="flex justify-center items-center bg-green-700 rounded-full">
-                            <p class="px-3 py-1 text-sm text-white">{{ kiwiCardStatus ? 'Tilgjengelig' : 'utilgjengelig' }}</p>
+                        <div
+                            :class="[
+                                'flex justify-center items-center rounded-full',
+                                kiwiCardStatus ? 'bg-green-700' : 'bg-red-700'
+                            ]"
+                        >
+                            <p class="px-3 py-1 text-sm text-white">
+                                {{ kiwiCardStatus ? 'Tilgjengelig' : 'Utilgjengelig' }}
+                            </p>
                         </div>
                         <p class="text-gray-700 text-sm">
-                            Kortet ligger på sin faste plass
+                            {{ kiwiCardStatus ? 'Kortet ligger på sin faste plass' : 'Kortet er ute på vift' }}
                         </p>
-                        <button type="button" class="w-full border-gray-500 border rounded-md font-semibold text-gray-700 text-md py-1"> Jeg tar kortet </button>
+                        <button
+                            v-if="kiwiCardStatus"
+                            type="button"
+                            class="w-full border-gray-500 border rounded-md font-semibold text-gray-700 text-md py-1 hover:bg-gray-50 transition-colors duration-200"
+                            @click="takeKiwiCard"
+                        >
+                            Jeg tar kortet
+                        </button>
+                        <button
+                            v-else
+                            type="button"
+                            class="w-full border-gray-500 border rounded-md font-semibold text-gray-700 text-md py-1 hover:bg-gray-50 transition-colors duration-200"
+                            @click="returnKiwiCard"
+                        >
+                            Jeg leverer kortet
+                        </button>
                     </div>
-                    <div class="flex flex-col items-center h-fit bg-white p-6 rounded-md shadow-sm w-full gap-3">
-                        <div class="flex flex-col gap-1 border-b border-gray-400 pb-5">
+
+                    <div
+                        v-if="showShoppingRelatedBlocks"
+                        class="flex flex-col items-center h-fit bg-white p-6 rounded-md shadow-sm w-full gap-3"
+                    >
+                        <div class="flex flex-col gap-1 border-b border-gray-400 pb-5 w-full">
                             <h1 class="text-2xl font-semibold">Hvem handler i dag?</h1>
                             <p class="text-sm text-gray-700 pb-5">
-                                Regitrer deg som innkjøpsansvarlig
+                                Registrer deg som innkjøpsansvarlig
                             </p>
-                            <div class="flex bg-blue-50 justify-between p-2 rounded-md items-center w-full">
+                            <div
+                                v-if="shoppingResponsible"
+                                class="flex bg-blue-50 justify-between p-2 rounded-md items-center w-full"
+                            >
                                 <div class="flex flex-col">
                                     <h2 class="text-md font-semibold">
-                                        Erik Hansen
+                                        {{ shoppingResponsible.name }}
                                     </h2>
-                                    <p class="text-xs text-gray-700">Registrert 11:30 </p>
+                                    <p class="text-xs text-gray-700">
+                                        Registrert {{ shoppingResponsible.time }}
+                                    </p>
                                 </div>
-                                <X class="w-5 h-5 text-red-500" />
+                                <X class="w-5 h-5 text-red-500 cursor-pointer" @click="removeShopper" />
+                            </div>
+                            <div v-else>
+                                <button
+                                    type="button"
+                                    class="bg-black p-2 w-full font-semibold text-md rounded-md text-white items-center hover:bg-gray-800 transition-colors duration-200"
+                                    @click="assignShopper"
+                                >
+                                    Jeg går på butikken
+                                </button>
                             </div>
                         </div>
-                        <button type="button" class="bg-black p-2 w-full font-semibold text-md rounded-md text-white items-center">
-                            Jeg går på butikken
-                        </button>
-
                     </div>
                     <div class="flex flex-col h-fit bg-white p-6 rounded-md shadow-sm w-full">
                         <h1 class="text-2xl font-semibold mb-6">Dagens oversikt</h1>

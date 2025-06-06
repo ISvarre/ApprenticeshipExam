@@ -15776,12 +15776,29 @@ const createLucideIcon = (iconName, iconNode) => (props, { slots }) => h(
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
+const ArrowLeft = createLucideIcon("arrow-left", [
+  ["path", { d: "m12 19-7-7 7-7", key: "1l729n" }],
+  ["path", { d: "M19 12H5", key: "x3x0zl" }]
+]);
+/**
+ * @license lucide-vue-next v0.513.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
 const Calendar = createLucideIcon("calendar", [
   ["path", { d: "M8 2v4", key: "1cmpym" }],
   ["path", { d: "M16 2v4", key: "4m81vk" }],
   ["rect", { width: "18", height: "18", x: "3", y: "4", rx: "2", key: "1hopcy" }],
   ["path", { d: "M3 10h18", key: "8toen8" }]
 ]);
+/**
+ * @license lucide-vue-next v0.513.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const Check = createLucideIcon("check", [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]]);
 /**
  * @license lucide-vue-next v0.513.0 - ISC
  *
@@ -15801,6 +15818,23 @@ const CreditCard = createLucideIcon("credit-card", [
 const Plus = createLucideIcon("plus", [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "M12 5v14", key: "s699le" }]
+]);
+/**
+ * @license lucide-vue-next v0.513.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const ShoppingCart = createLucideIcon("shopping-cart", [
+  ["circle", { cx: "8", cy: "21", r: "1", key: "jimo8o" }],
+  ["circle", { cx: "19", cy: "21", r: "1", key: "13723u" }],
+  [
+    "path",
+    {
+      d: "M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12",
+      key: "9zh506"
+    }
+  ]
 ]);
 /**
  * @license lucide-vue-next v0.513.0 - ISC
@@ -15835,20 +15869,27 @@ const X = createLucideIcon("x", [
   ["path", { d: "M18 6 6 18", key: "1bl5f8" }],
   ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
 ]);
-const _hoisted_1$1 = { className: "bg-white shadow-lg" };
-const _hoisted_2$1 = { className: "flex-col gap-4  sm:flex-row md:max-w-7xl flex items-center justify-between mx-auto px-4 sm:px-6 lg:px-8 py-4" };
-const _hoisted_3$1 = { className: "flex items-center space-x-3" };
-const _hoisted_4$1 = { className: "bg-blue-600 p-2 rounded-lg" };
-const _hoisted_5$1 = { className: "flex items-center space-x-2 text-md text-gray-600" };
-const _sfc_main$1 = /* @__PURE__ */ defineComponent({
+const _hoisted_1$2 = { className: "bg-white shadow-lg" };
+const _hoisted_2$2 = { className: "flex-col gap-4  sm:flex-row md:max-w-7xl flex items-center justify-between mx-auto px-4 sm:px-6 lg:px-8 py-4" };
+const _hoisted_3$2 = {
+  href: "/",
+  className: "flex items-center space-x-3"
+};
+const _hoisted_4$2 = { className: "bg-blue-600 p-2 rounded-lg" };
+const _hoisted_5$2 = { className: "flex items-center space-x-2 text-md text-gray-600" };
+const _sfc_main$2 = /* @__PURE__ */ defineComponent({
   __name: "Header",
   setup(__props) {
     let today = /* @__PURE__ */ new Date();
+    const formattedDate = computed(() => {
+      const dateStr = today.toLocaleDateString("no-NO", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
+      return dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+    });
     return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("header", _hoisted_1$1, [
-        createBaseVNode("div", _hoisted_2$1, [
-          createBaseVNode("div", _hoisted_3$1, [
-            createBaseVNode("div", _hoisted_4$1, [
+      return openBlock(), createElementBlock("header", _hoisted_1$2, [
+        createBaseVNode("div", _hoisted_2$2, [
+          createBaseVNode("a", _hoisted_3$2, [
+            createBaseVNode("div", _hoisted_4$2, [
               createVNode(unref(Users), { color: "white" })
             ]),
             _cache[0] || (_cache[0] = createBaseVNode("div", null, [
@@ -15856,74 +15897,92 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
               createBaseVNode("p", { className: "text-sm text-gray-600" }, "Crayon Consulting Innlandet")
             ], -1))
           ]),
-          createBaseVNode("div", _hoisted_5$1, [
+          createBaseVNode("div", _hoisted_5$2, [
             createVNode(unref(Calendar), { color: "gray" }),
-            createBaseVNode("p", null, toDisplayString(unref(today).toLocaleDateString("no-NO", { weekday: "long", year: "numeric", month: "long", day: "numeric" })), 1)
+            createBaseVNode("p", null, toDisplayString(formattedDate.value), 1)
           ])
         ])
       ]);
     };
   }
 });
-const _hoisted_1 = { class: "w-full min-h-screen bg-[#e8efff] py-8" };
-const _hoisted_2 = { class: "flex flex-col max-w-7xl mx-auto gap-8 px-4 sm:px-6 lg:px-8" };
-const _hoisted_3 = { class: "flex flex-col w-full gap-2 p-6 bg-white rounded-md drop-shadow-xs" };
-const _hoisted_4 = { class: "text-2xl font-semibold" };
-const _hoisted_5 = { class: "text-sm text-gray-500" };
-const _hoisted_6 = { class: "flex w-full gap-6" };
-const _hoisted_7 = { class: "flex flex-col h-fit bg-white p-6 rounded-md shadow-sm w-1/2" };
-const _hoisted_8 = { class: "flex justify-between items-center mb-6" };
-const _hoisted_9 = { class: "flex gap-2 items-center shrink-0" };
-const _hoisted_10 = {
+const _hoisted_1$1 = { class: "w-full min-h-screen bg-[#e8efff] py-8" };
+const _hoisted_2$1 = { class: "flex flex-col max-w-7xl mx-auto gap-8 px-4 sm:px-6 lg:px-8" };
+const _hoisted_3$1 = { class: "flex flex-col w-full gap-2 p-6 bg-white rounded-md drop-shadow-xs" };
+const _hoisted_4$1 = { class: "text-2xl font-semibold" };
+const _hoisted_5$1 = { class: "text-sm text-gray-500" };
+const _hoisted_6$1 = { class: "flex w-full gap-6" };
+const _hoisted_7$1 = { class: "flex flex-col h-fit bg-white p-6 rounded-md shadow-sm w-1/2" };
+const _hoisted_8$1 = { class: "flex justify-between items-center mb-6" };
+const _hoisted_9$1 = { class: "flex gap-2 items-center shrink-0" };
+const _hoisted_10$1 = {
   key: 0,
   class: "w-full max-w-full flex flex-wrap gap-5"
 };
-const _hoisted_11 = ["onClick"];
-const _hoisted_12 = { class: "text-xl font-bold text-gray-900 mb-2" };
-const _hoisted_13 = { class: "text-sm text-gray-700 mb-4" };
-const _hoisted_14 = { class: "inline-block bg-gray-100 text-gray-800 text-xs font-medium px-3 py-1 rounded-full" };
-const _hoisted_15 = {
+const _hoisted_11$1 = ["onClick"];
+const _hoisted_12$1 = { class: "text-xl font-bold text-gray-900 mb-2" };
+const _hoisted_13$1 = { class: "text-sm text-gray-700 mb-4" };
+const _hoisted_14$1 = { class: "inline-block bg-gray-100 text-gray-800 text-xs font-medium px-3 py-1 rounded-full" };
+const _hoisted_15$1 = {
   key: 1,
   class: "bg-white border border-gray-200 rounded-lg p-5 shadow-sm flex flex-col space-y-4"
 };
-const _hoisted_16 = {
+const _hoisted_16$1 = {
   key: 2,
   class: "mt-6 bg-blue-50 border border-blue-200 text-blue-800 p-4 rounded-lg text-center"
 };
-const _hoisted_17 = { class: "font-semibold" };
-const _hoisted_18 = { class: "flex flex-col bg-white p-6 rounded-md w-1/4" };
-const _hoisted_19 = { class: "mb-6" };
-const _hoisted_20 = { class: "flex items-center gap-2 mb-1" };
-const _hoisted_21 = { class: "flex flex-col gap-4" };
-const _hoisted_22 = { class: "mb-1 p-1 font-semibold text-gray-700" };
-const _hoisted_23 = ["onUpdate:modelValue"];
+const _hoisted_17$1 = { class: "font-semibold" };
+const _hoisted_18$1 = {
+  key: 3,
+  onclick: " window.location.href = '/en/shoppinglist';",
+  type: "button",
+  class: "mt-6 w-full flex justify-center items-center gap-2 bg-green-600 text-white p-3 rounded-md font-semibold text-lg hover:bg-green-700 transition-colors duration-200"
+};
+const _hoisted_19$1 = { class: "flex flex-col bg-white p-6 rounded-md w-1/4" };
+const _hoisted_20$1 = { class: "mb-6" };
+const _hoisted_21$1 = { class: "flex items-center gap-2 mb-1" };
+const _hoisted_22$1 = { class: "flex flex-col gap-4" };
+const _hoisted_23 = { class: "mb-1 p-1 font-semibold text-gray-700" };
 const _hoisted_24 = ["onUpdate:modelValue"];
-const _hoisted_25 = { class: "font-semibold text-md leading-tight" };
-const _hoisted_26 = { class: "whitespace-nowrap text-blue-700" };
-const _hoisted_27 = { class: "text-gray-900" };
-const _hoisted_28 = { class: "text-gray-700 text-sm" };
-const _hoisted_29 = {
+const _hoisted_25 = ["onUpdate:modelValue"];
+const _hoisted_26 = { class: "font-semibold text-md leading-tight" };
+const _hoisted_27 = { class: "whitespace-nowrap text-blue-700" };
+const _hoisted_28 = { class: "text-gray-900" };
+const _hoisted_29 = { class: "text-gray-700 text-sm" };
+const _hoisted_30 = {
   key: 1,
   class: "flex gap-2 mt-6"
 };
-const _hoisted_30 = { class: "flex flex-col h-fit w-1/4 gap-6" };
-const _hoisted_31 = { class: "flex flex-col items-center h-fit bg-white p-6 rounded-md shadow-sm w-full gap-3" };
-const _hoisted_32 = { class: "flex items-center justify-start gap-2 pb-2" };
-const _hoisted_33 = { class: "w-full flex justify-center" };
-const _hoisted_34 = { class: "flex items-center justify-center rounded-full h-16 w-16 bg-green-200" };
-const _hoisted_35 = { class: "flex justify-center items-center bg-green-700 rounded-full" };
-const _hoisted_36 = { class: "px-3 py-1 text-sm text-white" };
-const _hoisted_37 = { class: "flex flex-col items-center h-fit bg-white p-6 rounded-md shadow-sm w-full gap-3" };
-const _hoisted_38 = { class: "flex flex-col gap-1 border-b border-gray-400 pb-5" };
-const _hoisted_39 = { class: "flex bg-blue-50 justify-between p-2 rounded-md items-center w-full" };
-const _hoisted_40 = { class: "flex flex-col h-fit bg-white p-6 rounded-md shadow-sm w-full" };
-const _hoisted_41 = { class: "flex flex-col gap-4" };
-const _hoisted_42 = { class: "text-md text-gray-800" };
-const _hoisted_43 = { class: "inline-block bg-gray-100 text-gray-800 text-xs font-medium px-3 py-1 rounded-full" };
-const _hoisted_44 = { key: 0 };
-const _hoisted_45 = { class: "text-lg text-gray-800" };
-const _hoisted_46 = { class: "inline-block bg-gray-100 text-gray-800 text-xs font-medium px-3 py-1 rounded-full" };
-const _sfc_main = /* @__PURE__ */ defineComponent({
+const _hoisted_31 = { class: "flex flex-col h-fit w-1/4 gap-6" };
+const _hoisted_32 = {
+  key: 0,
+  class: "flex flex-col items-center h-fit bg-white p-6 rounded-md shadow-sm w-full gap-3"
+};
+const _hoisted_33 = { class: "flex items-center justify-start gap-2 pb-2" };
+const _hoisted_34 = { class: "w-full flex justify-center" };
+const _hoisted_35 = { class: "px-3 py-1 text-sm text-white" };
+const _hoisted_36 = { class: "text-gray-700 text-sm" };
+const _hoisted_37 = {
+  key: 1,
+  class: "flex flex-col items-center h-fit bg-white p-6 rounded-md shadow-sm w-full gap-3"
+};
+const _hoisted_38 = { class: "flex flex-col gap-1 border-b border-gray-400 pb-5 w-full" };
+const _hoisted_39 = {
+  key: 0,
+  class: "flex bg-blue-50 justify-between p-2 rounded-md items-center w-full"
+};
+const _hoisted_40 = { class: "flex flex-col" };
+const _hoisted_41 = { class: "text-md font-semibold" };
+const _hoisted_42 = { class: "text-xs text-gray-700" };
+const _hoisted_43 = { key: 1 };
+const _hoisted_44 = { class: "flex flex-col h-fit bg-white p-6 rounded-md shadow-sm w-full" };
+const _hoisted_45 = { class: "flex flex-col gap-4" };
+const _hoisted_46 = { class: "text-md text-gray-800" };
+const _hoisted_47 = { class: "inline-block bg-gray-100 text-gray-800 text-xs font-medium px-3 py-1 rounded-full" };
+const _hoisted_48 = { key: 0 };
+const _hoisted_49 = { class: "text-lg text-gray-800" };
+const _hoisted_50 = { class: "inline-block bg-gray-100 text-gray-800 text-xs font-medium px-3 py-1 rounded-full" };
+const _sfc_main$1 = /* @__PURE__ */ defineComponent({
   __name: "frontPage",
   props: {
     title: {
@@ -15944,6 +16003,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
         description: "Dagens varme måltider",
         people: 0,
         selected: false
+        // Removed additionalInfo
       },
       {
         id: 2,
@@ -15951,6 +16011,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
         description: "Påsmurt og delt måltid",
         people: 0,
         selected: false
+        // Removed additionalInfo
       }
     ]);
     const showCreateForm = ref(false);
@@ -16102,18 +16163,43 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
       };
     });
     const kiwiCardStatus = ref(true);
+    const shoppingResponsible = ref(null);
+    const takeKiwiCard = () => {
+      kiwiCardStatus.value = false;
+    };
+    const returnKiwiCard = () => {
+      kiwiCardStatus.value = true;
+    };
+    const assignShopper = () => {
+      if (!shoppingResponsible.value) {
+        const now = /* @__PURE__ */ new Date();
+        const hours = String(now.getHours()).padStart(2, "0");
+        const minutes = String(now.getMinutes()).padStart(2, "0");
+        shoppingResponsible.value = {
+          name: "Ikke oppgitt",
+          time: `${hours}:${minutes}`
+        };
+      }
+    };
+    const removeShopper = () => {
+      shoppingResponsible.value = null;
+    };
+    const showShoppingRelatedBlocks = computed(() => {
+      var _a;
+      return ((_a = selectedLunchOption.value) == null ? void 0 : _a.name) === "Lokalet";
+    });
     return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("div", _hoisted_1, [
-        createBaseVNode("div", _hoisted_2, [
-          createBaseVNode("div", _hoisted_3, [
-            createBaseVNode("h1", _hoisted_4, toDisplayString(props.title), 1),
-            createBaseVNode("p", _hoisted_5, toDisplayString(props.description), 1)
+      return openBlock(), createElementBlock("div", _hoisted_1$1, [
+        createBaseVNode("div", _hoisted_2$1, [
+          createBaseVNode("div", _hoisted_3$1, [
+            createBaseVNode("h1", _hoisted_4$1, toDisplayString(props.title), 1),
+            createBaseVNode("p", _hoisted_5$1, toDisplayString(props.description), 1)
           ]),
-          createBaseVNode("div", _hoisted_6, [
-            createBaseVNode("div", _hoisted_7, [
-              createBaseVNode("div", _hoisted_8, [
+          createBaseVNode("div", _hoisted_6$1, [
+            createBaseVNode("div", _hoisted_7$1, [
+              createBaseVNode("div", _hoisted_8$1, [
                 createBaseVNode("div", null, [
-                  createBaseVNode("div", _hoisted_9, [
+                  createBaseVNode("div", _hoisted_9$1, [
                     createVNode(unref(Utensils), { class: "w-5 h-5 text-gray-800" }),
                     _cache[3] || (_cache[3] = createBaseVNode("h1", { class: "text-2xl font-semibold text-gray-800" }, " Hvor spiser du lunsj i dag? ", -1))
                   ]),
@@ -16129,7 +16215,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
                   _cache[5] || (_cache[5] = createTextVNode(" Nytt forslag "))
                 ])) : createCommentVNode("", true)
               ]),
-              !showCreateForm.value ? (openBlock(), createElementBlock("div", _hoisted_10, [
+              !showCreateForm.value ? (openBlock(), createElementBlock("div", _hoisted_10$1, [
                 (openBlock(true), createElementBlock(Fragment, null, renderList(lunchOptions.value, (option) => {
                   return openBlock(), createElementBlock("div", {
                     key: option.id,
@@ -16139,12 +16225,12 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
                     ]),
                     onClick: ($event) => selectLunchOption(option.id)
                   }, [
-                    createBaseVNode("h2", _hoisted_12, toDisplayString(option.name), 1),
-                    createBaseVNode("p", _hoisted_13, toDisplayString(option.description), 1),
-                    createBaseVNode("div", _hoisted_14, toDisplayString(option.people) + " personer ", 1)
-                  ], 10, _hoisted_11);
+                    createBaseVNode("h2", _hoisted_12$1, toDisplayString(option.name), 1),
+                    createBaseVNode("p", _hoisted_13$1, toDisplayString(option.description), 1),
+                    createBaseVNode("div", _hoisted_14$1, toDisplayString(option.people) + " personer ", 1)
+                  ], 10, _hoisted_11$1);
                 }), 128))
-              ])) : (openBlock(), createElementBlock("div", _hoisted_15, [
+              ])) : (openBlock(), createElementBlock("div", _hoisted_15$1, [
                 withDirectives(createBaseVNode("input", {
                   type: "text",
                   "onUpdate:modelValue": _cache[1] || (_cache[1] = ($event) => newLunchOption.value.name = $event),
@@ -16172,21 +16258,25 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
                   }, " Avbryt ")
                 ])
               ])),
-              !showCreateForm.value && selectedLunchOption.value ? (openBlock(), createElementBlock("div", _hoisted_16, [
+              !showCreateForm.value && selectedLunchOption.value ? (openBlock(), createElementBlock("div", _hoisted_16$1, [
                 _cache[6] || (_cache[6] = createTextVNode(" Du har valgt: ")),
-                createBaseVNode("span", _hoisted_17, toDisplayString(selectedLunchOption.value.name), 1),
+                createBaseVNode("span", _hoisted_17$1, toDisplayString(selectedLunchOption.value.name), 1),
                 _cache[7] || (_cache[7] = createBaseVNode("p", { class: "text-sm mt-1" }, " Klikk på et annet alternativ for å endre ditt valg ", -1))
+              ])) : createCommentVNode("", true),
+              showShoppingRelatedBlocks.value ? (openBlock(), createElementBlock("button", _hoisted_18$1, [
+                createVNode(unref(ShoppingCart), { class: "w-5 h-5" }),
+                _cache[8] || (_cache[8] = createTextVNode(" Gå til innkjøpsliste "))
               ])) : createCommentVNode("", true)
             ]),
-            createBaseVNode("div", _hoisted_18, [
-              createBaseVNode("div", _hoisted_19, [
-                createBaseVNode("div", _hoisted_20, [
+            createBaseVNode("div", _hoisted_19$1, [
+              createBaseVNode("div", _hoisted_20$1, [
+                createBaseVNode("div", _hoisted_21$1, [
                   createVNode(unref(Utensils), { class: "w-5 h-5 text-gray-800" }),
-                  _cache[8] || (_cache[8] = createBaseVNode("h1", { class: "text-2xl font-semibold text-gray-800" }, " Kantinemeny ", -1))
+                  _cache[9] || (_cache[9] = createBaseVNode("h1", { class: "text-2xl font-semibold text-gray-800" }, " Kantinemeny ", -1))
                 ]),
-                _cache[9] || (_cache[9] = createBaseVNode("p", { class: "text-gray-500 text-sm" }, " Se hva som serveres i kantina ", -1))
+                _cache[10] || (_cache[10] = createBaseVNode("p", { class: "text-gray-500 text-sm" }, " Se hva som serveres i kantina ", -1))
               ]),
-              createBaseVNode("div", _hoisted_21, [
+              createBaseVNode("div", _hoisted_22$1, [
                 (openBlock(true), createElementBlock(Fragment, null, renderList(isEditingMenu.value ? editableMenu.value : canteenMenu.value, (item, idx) => {
                   return openBlock(), createElementBlock("div", {
                     key: isEditingMenu.value ? idx : item.day,
@@ -16196,27 +16286,27 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
                     ])
                   }, [
                     isEditingMenu.value ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
-                      createBaseVNode("div", _hoisted_22, toDisplayString(item.day), 1),
+                      createBaseVNode("div", _hoisted_23, toDisplayString(item.day), 1),
                       withDirectives(createBaseVNode("input", {
                         "onUpdate:modelValue": ($event) => item.meal = $event,
                         class: "mb-1 p-1 border rounded",
                         placeholder: "Måltid"
-                      }, null, 8, _hoisted_23), [
+                      }, null, 8, _hoisted_24), [
                         [vModelText, item.meal]
                       ]),
                       withDirectives(createBaseVNode("input", {
                         "onUpdate:modelValue": ($event) => item.description = $event,
                         class: "p-1 border rounded",
                         placeholder: "Beskrivelse"
-                      }, null, 8, _hoisted_24), [
+                      }, null, 8, _hoisted_25), [
                         [vModelText, item.description]
                       ])
                     ], 64)) : (openBlock(), createElementBlock(Fragment, { key: 1 }, [
-                      createBaseVNode("h3", _hoisted_25, [
-                        createBaseVNode("span", _hoisted_26, toDisplayString(item.day) + ": ", 1),
-                        createBaseVNode("span", _hoisted_27, toDisplayString(item.meal), 1)
+                      createBaseVNode("h3", _hoisted_26, [
+                        createBaseVNode("span", _hoisted_27, toDisplayString(item.day) + ": ", 1),
+                        createBaseVNode("span", _hoisted_28, toDisplayString(item.meal), 1)
                       ]),
-                      createBaseVNode("p", _hoisted_28, toDisplayString(item.description), 1)
+                      createBaseVNode("p", _hoisted_29, toDisplayString(item.description), 1)
                     ], 64))
                   ], 2);
                 }), 128))
@@ -16225,7 +16315,7 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
                 key: 0,
                 class: "mt-6 w-full py-3 px-4 bg-white border border-gray-300 rounded-md text-gray-800 font-medium hover:bg-gray-50 transition-colors duration-200",
                 onClick: startEditMenu
-              }, " Oppdater meny ")) : (openBlock(), createElementBlock("div", _hoisted_29, [
+              }, " Oppdater meny ")) : (openBlock(), createElementBlock("div", _hoisted_30, [
                 createBaseVNode("button", {
                   class: "py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-700",
                   onClick: saveMenu
@@ -16236,64 +16326,91 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
                 }, " Avbryt ")
               ]))
             ]),
-            createBaseVNode("div", _hoisted_30, [
-              createBaseVNode("div", _hoisted_31, [
-                createBaseVNode("div", _hoisted_32, [
-                  createVNode(unref(CreditCard), { class: "w-6 h-6 text-black" }),
-                  _cache[10] || (_cache[10] = createBaseVNode("h1", { class: "text-2xl font-semibold" }, "Kiwikort Status ", -1))
-                ]),
+            createBaseVNode("div", _hoisted_31, [
+              showShoppingRelatedBlocks.value ? (openBlock(), createElementBlock("div", _hoisted_32, [
                 createBaseVNode("div", _hoisted_33, [
-                  createBaseVNode("div", _hoisted_34, [
-                    createVNode(unref(CreditCard), { class: "w-8 h-8 text-green-700" })
+                  createVNode(unref(CreditCard), { class: "w-6 h-6 text-black" }),
+                  _cache[11] || (_cache[11] = createBaseVNode("h1", { class: "text-2xl font-semibold" }, "Kiwikort Status", -1))
+                ]),
+                createBaseVNode("div", _hoisted_34, [
+                  createBaseVNode("div", {
+                    class: normalizeClass([
+                      "flex items-center justify-center rounded-full h-16 w-16",
+                      kiwiCardStatus.value ? "bg-green-200" : "bg-red-200"
+                    ])
+                  }, [
+                    createVNode(unref(CreditCard), {
+                      class: normalizeClass([
+                        "w-8 h-8",
+                        kiwiCardStatus.value ? "text-green-700" : "text-red-700"
+                      ])
+                    }, null, 8, ["class"])
+                  ], 2)
+                ]),
+                createBaseVNode("div", {
+                  class: normalizeClass([
+                    "flex justify-center items-center rounded-full",
+                    kiwiCardStatus.value ? "bg-green-700" : "bg-red-700"
                   ])
-                ]),
-                createBaseVNode("div", _hoisted_35, [
-                  createBaseVNode("p", _hoisted_36, toDisplayString(kiwiCardStatus.value ? "Tilgjengelig" : "utilgjengelig"), 1)
-                ]),
-                _cache[11] || (_cache[11] = createBaseVNode("p", { class: "text-gray-700 text-sm" }, " Kortet ligger på sin faste plass ", -1)),
-                _cache[12] || (_cache[12] = createBaseVNode("button", {
+                }, [
+                  createBaseVNode("p", _hoisted_35, toDisplayString(kiwiCardStatus.value ? "Tilgjengelig" : "Utilgjengelig"), 1)
+                ], 2),
+                createBaseVNode("p", _hoisted_36, toDisplayString(kiwiCardStatus.value ? "Kortet ligger på sin faste plass" : "Kortet er ute på vift"), 1),
+                kiwiCardStatus.value ? (openBlock(), createElementBlock("button", {
+                  key: 0,
                   type: "button",
-                  class: "w-full border-gray-500 border rounded-md font-semibold text-gray-700 text-md py-1"
-                }, " Jeg tar kortet ", -1))
-              ]),
-              createBaseVNode("div", _hoisted_37, [
+                  class: "w-full border-gray-500 border rounded-md font-semibold text-gray-700 text-md py-1 hover:bg-gray-50 transition-colors duration-200",
+                  onClick: takeKiwiCard
+                }, " Jeg tar kortet ")) : (openBlock(), createElementBlock("button", {
+                  key: 1,
+                  type: "button",
+                  class: "w-full border-gray-500 border rounded-md font-semibold text-gray-700 text-md py-1 hover:bg-gray-50 transition-colors duration-200",
+                  onClick: returnKiwiCard
+                }, " Jeg leverer kortet "))
+              ])) : createCommentVNode("", true),
+              showShoppingRelatedBlocks.value ? (openBlock(), createElementBlock("div", _hoisted_37, [
                 createBaseVNode("div", _hoisted_38, [
-                  _cache[14] || (_cache[14] = createBaseVNode("h1", { class: "text-2xl font-semibold" }, "Hvem handler i dag?", -1)),
-                  _cache[15] || (_cache[15] = createBaseVNode("p", { class: "text-sm text-gray-700 pb-5" }, " Regitrer deg som innkjøpsansvarlig ", -1)),
-                  createBaseVNode("div", _hoisted_39, [
-                    _cache[13] || (_cache[13] = createBaseVNode("div", { class: "flex flex-col" }, [
-                      createBaseVNode("h2", { class: "text-md font-semibold" }, " Erik Hansen "),
-                      createBaseVNode("p", { class: "text-xs text-gray-700" }, "Registrert 11:30 ")
-                    ], -1)),
-                    createVNode(unref(X), { class: "w-5 h-5 text-red-500" })
-                  ])
-                ]),
-                _cache[16] || (_cache[16] = createBaseVNode("button", {
-                  type: "button",
-                  class: "bg-black p-2 w-full font-semibold text-md rounded-md text-white items-center"
-                }, " Jeg går på butikken ", -1))
-              ]),
-              createBaseVNode("div", _hoisted_40, [
-                _cache[18] || (_cache[18] = createBaseVNode("h1", { class: "text-2xl font-semibold mb-6" }, "Dagens oversikt", -1)),
-                createBaseVNode("div", _hoisted_41, [
+                  _cache[12] || (_cache[12] = createBaseVNode("h1", { class: "text-2xl font-semibold" }, "Hvem handler i dag?", -1)),
+                  _cache[13] || (_cache[13] = createBaseVNode("p", { class: "text-sm text-gray-700 pb-5" }, " Registrer deg som innkjøpsansvarlig ", -1)),
+                  shoppingResponsible.value ? (openBlock(), createElementBlock("div", _hoisted_39, [
+                    createBaseVNode("div", _hoisted_40, [
+                      createBaseVNode("h2", _hoisted_41, toDisplayString(shoppingResponsible.value.name), 1),
+                      createBaseVNode("p", _hoisted_42, " Registrert " + toDisplayString(shoppingResponsible.value.time), 1)
+                    ]),
+                    createVNode(unref(X), {
+                      class: "w-5 h-5 text-red-500 cursor-pointer",
+                      onClick: removeShopper
+                    })
+                  ])) : (openBlock(), createElementBlock("div", _hoisted_43, [
+                    createBaseVNode("button", {
+                      type: "button",
+                      class: "bg-black p-2 w-full font-semibold text-md rounded-md text-white items-center hover:bg-gray-800 transition-colors duration-200",
+                      onClick: assignShopper
+                    }, " Jeg går på butikken ")
+                  ]))
+                ])
+              ])) : createCommentVNode("", true),
+              createBaseVNode("div", _hoisted_44, [
+                _cache[15] || (_cache[15] = createBaseVNode("h1", { class: "text-2xl font-semibold mb-6" }, "Dagens oversikt", -1)),
+                createBaseVNode("div", _hoisted_45, [
                   (openBlock(true), createElementBlock(Fragment, null, renderList(lunchSummary.value.mainOptions, (option) => {
                     return openBlock(), createElementBlock("div", {
                       key: option.name,
                       class: "flex justify-between items-center pb-2 border-b border-gray-300 last:border-b-0"
                     }, [
-                      createBaseVNode("span", _hoisted_42, toDisplayString(option.name) + ":", 1),
-                      createBaseVNode("div", _hoisted_43, toDisplayString(option.people) + " personer ", 1)
+                      createBaseVNode("span", _hoisted_46, toDisplayString(option.name) + ":", 1),
+                      createBaseVNode("div", _hoisted_47, toDisplayString(option.people) + " personer ", 1)
                     ]);
                   }), 128)),
-                  lunchSummary.value.otherSuggestions.length > 0 ? (openBlock(), createElementBlock("div", _hoisted_44, [
-                    _cache[17] || (_cache[17] = createBaseVNode("h2", { class: "text-lg font-bold text-gray-700 mt-4 mb-3" }, " Andre forslag: ", -1)),
+                  lunchSummary.value.otherSuggestions.length > 0 ? (openBlock(), createElementBlock("div", _hoisted_48, [
+                    _cache[14] || (_cache[14] = createBaseVNode("h2", { class: "text-lg font-bold text-gray-700 mt-4 mb-3" }, " Andre forslag: ", -1)),
                     (openBlock(true), createElementBlock(Fragment, null, renderList(lunchSummary.value.otherSuggestions, (option) => {
                       return openBlock(), createElementBlock("div", {
                         key: option.name,
                         class: "flex justify-between items-center pb-2 border-b border-gray-300 last:border-b-0"
                       }, [
-                        createBaseVNode("span", _hoisted_45, toDisplayString(option.name) + ":", 1),
-                        createBaseVNode("div", _hoisted_46, toDisplayString(option.people) + " personer ", 1)
+                        createBaseVNode("span", _hoisted_49, toDisplayString(option.name) + ":", 1),
+                        createBaseVNode("div", _hoisted_50, toDisplayString(option.people) + " personer ", 1)
                       ]);
                     }), 128))
                   ])) : createCommentVNode("", true)
@@ -16306,7 +16423,189 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
     };
   }
 });
+const _hoisted_1 = { class: "w-full min-h-screen bg-[#e8efff] py-8" };
+const _hoisted_2 = { class: "flex flex-col max-w-4xl mx-auto gap-8 px-4 sm:px-6 lg:px-8" };
+const _hoisted_3 = { class: "flex flex-col w-full gap-6 p-6 bg-white rounded-md drop-shadow-xs" };
+const _hoisted_4 = { class: "flex flex-col w-full gap-2 border-b border-gray-200 pb-6" };
+const _hoisted_5 = { class: "flex gap-3 items-center" };
+const _hoisted_6 = { class: "flex gap-4 items-center" };
+const _hoisted_7 = { class: "bg-blue-50 border border-blue-100 rounded-md p-4 flex items-center justify-between text-blue-800 font-medium" };
+const _hoisted_8 = { class: "text-base" };
+const _hoisted_9 = { class: "block text-sm text-gray-700" };
+const _hoisted_10 = { class: "flex gap-3 text-sm" };
+const _hoisted_11 = { class: "inline-block bg-white text-blue-800 px-3 py-1 rounded-full border border-blue-200" };
+const _hoisted_12 = { class: "inline-block bg-white text-blue-800 px-3 py-1 rounded-full border border-blue-200" };
+const _hoisted_13 = { class: "flex flex-col gap-4" };
+const _hoisted_14 = {
+  key: 0,
+  class: "text-center text-gray-500 mt-2 p-4 bg-gray-50 rounded-md"
+};
+const _hoisted_15 = { class: "flex items-center gap-4" };
+const _hoisted_16 = ["onClick"];
+const _hoisted_17 = { class: "text-lg font-medium text-gray-900" };
+const _hoisted_18 = { class: "flex flex-col gap-4 mt-6" };
+const _hoisted_19 = {
+  key: 0,
+  class: "text-center text-gray-500 mt-2 p-4 bg-gray-50 rounded-md"
+};
+const _hoisted_20 = { class: "flex items-center gap-4" };
+const _hoisted_21 = ["onClick"];
+const _hoisted_22 = { class: "text-lg font-medium text-green-800" };
+const _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: "shoppingList",
+  setup(__props) {
+    const shoppingList = ref([]);
+    const newItemName = ref("");
+    const newItemRequestedBy = ref("");
+    const pendingItems = computed(() => {
+      return shoppingList.value.filter((item) => !item.bought);
+    });
+    const boughtItems = computed(() => {
+      return shoppingList.value.filter((item) => item.bought);
+    });
+    const itemsRemaining = computed(() => {
+      return pendingItems.value.length;
+    });
+    const itemsBoughtCount = computed(() => {
+      return boughtItems.value.length;
+    });
+    const totalItems = computed(() => {
+      return shoppingList.value.length;
+    });
+    const addNewItem = () => {
+      if (newItemName.value.trim()) {
+        const maxId = shoppingList.value.length > 0 ? Math.max(...shoppingList.value.map((item) => item.id)) : 0;
+        shoppingList.value.push({
+          id: maxId + 1,
+          name: newItemName.value.trim(),
+          requestedBy: newItemRequestedBy.value.trim() || "Ukjent",
+          bought: false
+        });
+        newItemName.value = "";
+        newItemRequestedBy.value = "";
+      } else {
+        alert("Vennligst skriv inn navnet på varen.");
+      }
+    };
+    const toggleBoughtStatus = (id) => {
+      const itemIndex = shoppingList.value.findIndex((item) => item.id === id);
+      if (itemIndex !== -1) {
+        shoppingList.value[itemIndex].bought = !shoppingList.value[itemIndex].bought;
+      }
+    };
+    const goBack = () => {
+      console.log("Navigating back to previous page (simulated)");
+    };
+    return (_ctx, _cache) => {
+      return openBlock(), createElementBlock("div", _hoisted_1, [
+        createBaseVNode("div", _hoisted_2, [
+          createBaseVNode("div", {
+            class: "flex items-center gap-2 mb-4 cursor-pointer text-gray-700 hover:text-gray-900",
+            onClick: goBack
+          }, [
+            createVNode(unref(ArrowLeft), { class: "w-5 h-5" }),
+            _cache[1] || (_cache[1] = createBaseVNode("a", {
+              href: "/",
+              class: "text-base font-medium hover:underline"
+            }, "Tilbake til forsiden", -1))
+          ]),
+          createBaseVNode("div", _hoisted_3, [
+            createBaseVNode("div", _hoisted_4, [
+              createBaseVNode("div", _hoisted_5, [
+                createVNode(unref(ShoppingCart), { class: "w-7 h-7 text-gray-800" }),
+                _cache[2] || (_cache[2] = createBaseVNode("h1", { class: "text-3xl font-semibold" }, "Innkjøpsliste", -1))
+              ]),
+              _cache[3] || (_cache[3] = createBaseVNode("p", { class: "text-md text-gray-500" }, " Legg til ønsker for pålegg og andre varer ", -1))
+            ]),
+            createBaseVNode("div", _hoisted_6, [
+              withDirectives(createBaseVNode("input", {
+                type: "text",
+                "onUpdate:modelValue": _cache[0] || (_cache[0] = ($event) => newItemName.value = $event),
+                placeholder: "Legg til ønsket vare...",
+                class: "flex-grow p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500",
+                onKeyup: withKeys(addNewItem, ["enter"])
+              }, null, 544), [
+                [vModelText, newItemName.value]
+              ]),
+              createBaseVNode("button", {
+                onClick: addNewItem,
+                class: "flex items-center gap-2 bg-black text-white px-5 py-3 rounded-md text-md font-semibold hover:bg-gray-800 transition-colors duration-200 shrink-0"
+              }, [
+                createVNode(unref(Plus), { class: "w-5 h-5 inline" }),
+                _cache[4] || (_cache[4] = createTextVNode(" Legg til "))
+              ])
+            ]),
+            createBaseVNode("div", _hoisted_7, [
+              createBaseVNode("p", _hoisted_8, [
+                _cache[5] || (_cache[5] = createTextVNode(" Innkjøpsliste status ")),
+                createBaseVNode("span", _hoisted_9, toDisplayString(itemsRemaining.value) + " varer gjenstår å kjøpe ", 1)
+              ]),
+              createBaseVNode("div", _hoisted_10, [
+                createBaseVNode("span", _hoisted_11, toDisplayString(itemsBoughtCount.value) + " kjøpt ", 1),
+                createBaseVNode("span", _hoisted_12, toDisplayString(totalItems.value) + " totalt ", 1)
+              ])
+            ]),
+            createBaseVNode("div", _hoisted_13, [
+              _cache[8] || (_cache[8] = createBaseVNode("h2", { class: "text-xl font-semibold text-gray-800" }, "Gjenstående varer", -1)),
+              pendingItems.value.length === 0 && totalItems.value > 0 ? (openBlock(), createElementBlock("div", _hoisted_14, _cache[6] || (_cache[6] = [
+                createBaseVNode("p", { class: "text-lg" }, "Alle varer er kjøpt inn! 🎉", -1)
+              ]))) : createCommentVNode("", true),
+              (openBlock(true), createElementBlock(Fragment, null, renderList(pendingItems.value, (item) => {
+                return openBlock(), createElementBlock("div", {
+                  key: item.id,
+                  class: "flex items-center justify-between bg-white border border-gray-200 rounded-md p-4 shadow-sm"
+                }, [
+                  createBaseVNode("div", _hoisted_15, [
+                    createBaseVNode("div", {
+                      class: "w-6 h-6 border-2 border-gray-300 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-100 transition-colors duration-200",
+                      onClick: ($event) => toggleBoughtStatus(item.id)
+                    }, [
+                      item.bought ? (openBlock(), createBlock(unref(Check), {
+                        key: 0,
+                        class: "w-4 h-4 text-gray-500"
+                      })) : createCommentVNode("", true)
+                    ], 8, _hoisted_16),
+                    createBaseVNode("div", null, [
+                      createBaseVNode("p", _hoisted_17, toDisplayString(item.name), 1)
+                    ])
+                  ]),
+                  _cache[7] || (_cache[7] = createBaseVNode("span", { class: "text-sm text-gray-500" }, "Ikke kjøpt", -1))
+                ]);
+              }), 128))
+            ]),
+            createBaseVNode("div", _hoisted_18, [
+              _cache[11] || (_cache[11] = createBaseVNode("h2", { class: "text-xl font-semibold text-gray-800" }, "Kjøpte varer", -1)),
+              boughtItems.value.length === 0 ? (openBlock(), createElementBlock("div", _hoisted_19, _cache[9] || (_cache[9] = [
+                createBaseVNode("p", { class: "text-lg" }, "Ingen varer er kjøpt enda.", -1)
+              ]))) : createCommentVNode("", true),
+              (openBlock(true), createElementBlock(Fragment, null, renderList(boughtItems.value, (item) => {
+                return openBlock(), createElementBlock("div", {
+                  key: item.id,
+                  class: "flex items-center justify-between bg-green-50 border border-green-200 rounded-md p-4 shadow-sm"
+                }, [
+                  createBaseVNode("div", _hoisted_20, [
+                    createBaseVNode("div", {
+                      class: "w-6 h-6 bg-green-600 rounded-full flex items-center justify-center cursor-pointer hover:bg-green-700 transition-colors duration-200",
+                      onClick: ($event) => toggleBoughtStatus(item.id)
+                    }, [
+                      createVNode(unref(Check), { class: "w-4 h-4 text-white" })
+                    ], 8, _hoisted_21),
+                    createBaseVNode("div", null, [
+                      createBaseVNode("p", _hoisted_22, toDisplayString(item.name), 1)
+                    ])
+                  ]),
+                  _cache[10] || (_cache[10] = createBaseVNode("span", { class: "inline-block bg-black text-white text-xs font-medium px-3 py-1 rounded-full" }, "Kjøpt", -1))
+                ]);
+              }), 128))
+            ])
+          ])
+        ])
+      ]);
+    };
+  }
+});
 const app = createApp({});
-app.component("FfHeader", _sfc_main$1);
-app.component("FfFrontPage", _sfc_main);
+app.component("FfHeader", _sfc_main$2);
+app.component("FfFrontPage", _sfc_main$1);
+app.component("FfShoppingList", _sfc_main);
 app.mount("#app");
