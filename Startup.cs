@@ -41,6 +41,8 @@ public class Startup
             options.Cookie.HttpOnly = true;
             options.Cookie.IsEssential = true;
         });
+
+        services.AddControllers();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -62,6 +64,7 @@ public class Startup
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapContent();
+            endpoints.MapControllers();
         });
     }
 }

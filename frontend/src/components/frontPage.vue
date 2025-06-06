@@ -1,6 +1,35 @@
 ﻿<script setup lang="ts">
 import { Utensils, Plus, CreditCard, X, ShoppingCart } from "lucide-vue-next";
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
+import axios from 'axios';
+
+interface LunchOption {
+    id: string;
+    name: string;
+    description: string;
+    people: number;
+    selected: boolean;
+}
+
+const lunchOptions = ref<LunchOption[]>([]);
+
+async function loadLunchOptions() {
+    const response = await axios.get('/api/lunchoptions');
+    lunchOptions.value = response.data;
+}
+
+onMounted(loadLunchOptions);
+
+async function addLunchOption() {
+    const response = await axios.post('/api/lunchoptions', {
+        name: newLunchOption.value.name,
+        description: newLunchOption.value.description
+    });
+    lunchOptions.value.push(response.data);
+
+    newLunchOption.value = { name: '', description: '' };
+    showCreateForm.value = false;
+}
 
 const props = defineProps({
     title: {
@@ -13,25 +42,12 @@ const props = defineProps({
     }
 });
 
-const lunchOptions = ref([
-    {
-        id: 1,
-        name: 'Kantina',
-        description: 'Dagens varme måltider',
-        people: 0,
-        selected: false,
-        // Removed additionalInfo
-    },
-    {
-        id: 2,
-        name: 'Lokalet',
-        description: 'Påsmurt og delt måltid',
-        people: 0,
-        selected: false,
-        // Removed additionalInfo
-    },
-]);
+async function removeLunchOption(id: string) {
+    await axios.delete(`/api/lunchoptions/${id}`);
+    await loadLunchOptions();
+}
 
+const showDeleteForm = ref(false);
 const showCreateForm = ref(false);
 
 const newLunchOption = ref({
@@ -39,7 +55,7 @@ const newLunchOption = ref({
     description: '',
 });
 
-const selectedLunchOptionId = ref<number | null>(null);
+const selectedLunchOptionId = ref<string | null>(null);
 
 const selectedLunchOption = computed(() => {
     return lunchOptions.value.find(
@@ -47,7 +63,7 @@ const selectedLunchOption = computed(() => {
     );
 });
 
-const selectLunchOption = (id: number) => {
+const selectLunchOption = (id: string) => {
     const currentSelected = lunchOptions.value.find(option => option.selected);
     const clickedOption = lunchOptions.value.find(option => option.id === id);
 
@@ -65,29 +81,6 @@ const selectLunchOption = (id: number) => {
         clickedOption.selected = true;
         clickedOption.people++;
         selectedLunchOptionId.value = id;
-    }
-};
-
-const addLunchOption = () => {
-    if (newLunchOption.value.name.trim()) {
-        const maxId = Math.max(...lunchOptions.value.map((o) => o.id));
-        const newId = maxId > 0 ? maxId + 1 : 1;
-
-        lunchOptions.value.push({
-            id: newId,
-            name: newLunchOption.value.name,
-            description: newLunchOption.value.description,
-            people: 0,
-            selected: false,
-        });
-
-        newLunchOption.value = {
-            name: '',
-            description: '',
-        };
-        showCreateForm.value = false;
-    } else {
-        alert('Navn på sted er påkrevd!');
     }
 };
 
@@ -259,18 +252,28 @@ const showShoppingRelatedBlocks = computed(() => {
                                 Velg ditt foretrukne lunsjsted for i dag
                             </p>
                         </div>
-                        <button
-                            v-if="!showCreateForm"
-                            @click="showCreateForm = true"
-                            type="button"
-                            class="justify-center gap-2 text-sm border border-gray-300 h-9 rounded-md px-3 flex items-center shrink-0 bg-white hover:bg-gray-50 transition-colors duration-200"
-                        >
-                            <Plus class="w-4 h-4 inline" />
-                            Nytt forslag
-                        </button>
+                        <div class="flex flex-col">
+                            <button
+                                v-if="!showCreateForm && !showDeleteForm"
+                                @click="showCreateForm = true"
+                                type="button"
+                                class="justify-center gap-2 text-sm border border-gray-300 h-9 rounded-md px-3 flex items-center shrink-0 bg-white hover:bg-gray-50 transition-colors duration-200"
+                            >
+                                <Plus class="w-4 h-4 inline" />
+                                Nytt forslag
+                            </button>
+                            <button
+                                v-if="!showCreateForm && !showDeleteForm"
+                                @click="showDeleteForm = true"
+                                type="button"
+                                class="justify-center gap-2 text-sm border border-red-300 h-9 rounded-md px-3 flex items-center shrink-0 bg-white hover:bg-red-50 text-red-600 transition-colors duration-200"
+                            >
+                                Slett forslag
+                            </button>
+                        </div>
                     </div>
                     <div
-                        v-if="!showCreateForm"
+                        v-if="!showCreateForm && !showDeleteForm"
                         class="w-full max-w-full flex flex-wrap gap-5"
                     >
                         <div
@@ -293,9 +296,35 @@ const showShoppingRelatedBlocks = computed(() => {
                             </div>
                         </div>
                     </div>
-
                     <div
-                        v-else
+                        v-if="showDeleteForm"
+                        class="bg-white border border-gray-200 rounded-lg p-5 shadow-sm flex flex-col space-y-4"
+                    >
+                        <h2 class="text-xl font-bold mb-4">Slett lunsjforslag</h2>
+                        <ul class="mb-4">
+                            <li
+                                v-for="option in lunchOptions"
+                                :key="option.id"
+                                class="flex justify-between items-center py-2 border-b last:border-b-0"
+                            >
+                                <span>{{ option.name }}</span>
+                                <button
+                                    @click="console.log(option.id); removeLunchOption(option.id.externalId)"
+                                    class="text-red-500 hover:text-red-700"
+                                >
+                                    Slett
+                                </button>
+                            </li>
+                        </ul>
+                        <button
+                            @click="showDeleteForm = false"
+                            class="mt-2 px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+                        >
+                            Lukk
+                        </button>
+                    </div>
+                    <div
+                        v-if="showCreateForm"
                         class="bg-white border border-gray-200 rounded-lg p-5 shadow-sm flex flex-col space-y-4"
                     >
                         <input
@@ -347,6 +376,7 @@ const showShoppingRelatedBlocks = computed(() => {
                         Gå til innkjøpsliste
                     </button>
                 </div>
+
                 <div class="flex flex-col bg-white p-6 rounded-md w-1/4">
                     <div class="mb-6">
                         <div class="flex items-center gap-2 mb-1">
