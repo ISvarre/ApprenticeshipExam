@@ -18293,9 +18293,9 @@ const _hoisted_2$1 = { class: "flex flex-col max-w-7xl mx-auto gap-8 px-4 sm:px-
 const _hoisted_3$1 = { class: "flex flex-col w-full gap-2 p-6 bg-white rounded-md drop-shadow-xs" };
 const _hoisted_4$1 = { class: "text-2xl font-semibold" };
 const _hoisted_5$1 = { class: "text-sm text-gray-500" };
-const _hoisted_6$1 = { class: "flex w-full gap-6" };
-const _hoisted_7$1 = { class: "flex flex-col h-fit bg-white p-6 rounded-md shadow-sm w-1/2" };
-const _hoisted_8$1 = { class: "flex justify-between items-center mb-6" };
+const _hoisted_6$1 = { class: "flex flex-col md:flex-row w-full gap-6" };
+const _hoisted_7$1 = { class: "flex flex-col h-fit bg-white p-6 rounded-md shadow-sm md:w-1/2" };
+const _hoisted_8$1 = { class: "flex flex-col sm:justify-between mb-6" };
 const _hoisted_9$1 = { class: "flex gap-2 items-center shrink-0" };
 const _hoisted_10$1 = { class: "flex flex-col" };
 const _hoisted_11$1 = {
@@ -18327,7 +18327,7 @@ const _hoisted_22$1 = {
   type: "button",
   class: "mt-6 w-full flex justify-center items-center gap-2 bg-green-600 text-white p-3 rounded-md font-semibold text-lg hover:bg-green-700 transition-colors duration-200"
 };
-const _hoisted_23 = { class: "flex flex-col bg-white p-6 rounded-md w-1/4" };
+const _hoisted_23 = { class: "flex flex-col bg-white p-6 rounded-md md:w-1/4" };
 const _hoisted_24 = { class: "mb-6" };
 const _hoisted_25 = { class: "flex items-center gap-2 mb-1" };
 const _hoisted_26 = { class: "flex flex-col gap-4" };
@@ -18342,7 +18342,7 @@ const _hoisted_34 = {
   key: 1,
   class: "flex gap-2 mt-6"
 };
-const _hoisted_35 = { class: "flex flex-col h-fit w-1/4 gap-6" };
+const _hoisted_35 = { class: "flex flex-col h-fit md:w-1/4 gap-6" };
 const _hoisted_36 = {
   key: 0,
   class: "flex flex-col items-center h-fit bg-white p-6 rounded-md shadow-sm w-full gap-3"
@@ -18571,7 +18571,7 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
               createBaseVNode("div", _hoisted_8$1, [
                 createBaseVNode("div", null, [
                   createBaseVNode("div", _hoisted_9$1, [
-                    createVNode(unref(Utensils), { class: "w-5 h-5 text-gray-800" }),
+                    createVNode(unref(Utensils), { class: "w-5 h-5 text-gray-800 hidden md:block" }),
                     _cache[5] || (_cache[5] = createBaseVNode("h1", { class: "text-2xl font-semibold text-gray-800" }, " Hvor spiser du lunsj i dag? ", -1))
                   ]),
                   _cache[6] || (_cache[6] = createBaseVNode("p", { class: "text-sm text-gray-500" }, " Velg ditt foretrukne lunsjsted for i dag ", -1))

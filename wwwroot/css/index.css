@@ -358,6 +358,10 @@
     display: grid;
   }
 
+  .hidden {
+    display: none;
+  }
+
   .inline {
     display: inline;
   }
@@ -1062,8 +1066,20 @@
   }
 
   @media (width >= 40rem) {
+    .sm\:block {
+      display: block;
+    }
+
     .sm\:flex-row {
       flex-direction: row;
+    }
+
+    .sm\:items-center {
+      align-items: center;
+    }
+
+    .sm\:justify-between {
+      justify-content: space-between;
     }
 
     .sm\:px-6 {
@@ -1072,8 +1088,28 @@
   }
 
   @media (width >= 48rem) {
+    .md\:block {
+      display: block;
+    }
+
+    .md\:w-1\/2 {
+      width: 50%;
+    }
+
+    .md\:w-1\/4 {
+      width: 25%;
+    }
+
     .md\:max-w-7xl {
       max-width: var(--container-7xl);
+    }
+
+    .md\:flex-row {
+      flex-direction: row;
+    }
+
+    .md\:items-center {
+      align-items: center;
     }
   }
 

@@ -238,12 +238,12 @@ const showShoppingRelatedBlocks = computed(() => {
                 <p class="text-sm text-gray-500">{{ props.description }}</p>
             </div>
 
-            <div class="flex w-full gap-6">
-                <div class="flex flex-col h-fit bg-white p-6 rounded-md shadow-sm w-1/2">
-                    <div class="flex justify-between items-center mb-6">
+            <div class="flex flex-col md:flex-row w-full gap-6">
+                <div class="flex flex-col h-fit bg-white p-6 rounded-md shadow-sm md:w-1/2">
+                    <div class="flex flex-col sm:justify-between mb-6">
                         <div>
                             <div class="flex gap-2 items-center shrink-0">
-                                <Utensils class="w-5 h-5 text-gray-800" />
+                                <Utensils class="w-5 h-5 text-gray-800 hidden md:block" />
                                 <h1 class="text-2xl font-semibold text-gray-800">
                                     Hvor spiser du lunsj i dag?
                                 </h1>
@@ -377,7 +377,7 @@ const showShoppingRelatedBlocks = computed(() => {
                     </button>
                 </div>
 
-                <div class="flex flex-col bg-white p-6 rounded-md w-1/4">
+                <div class="flex flex-col bg-white p-6 rounded-md md:w-1/4">
                     <div class="mb-6">
                         <div class="flex items-center gap-2 mb-1">
                             <Utensils class="w-5 h-5 text-gray-800" />
@@ -455,7 +455,7 @@ const showShoppingRelatedBlocks = computed(() => {
                     </div>
                 </div>
 
-                <div class="flex flex-col h-fit w-1/4 gap-6">
+                <div class="flex flex-col h-fit md:w-1/4 gap-6">
                     <div
                         v-if="showShoppingRelatedBlocks"
                         class="flex flex-col items-center h-fit bg-white p-6 rounded-md shadow-sm w-full gap-3"
