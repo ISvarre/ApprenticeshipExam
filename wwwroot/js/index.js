@@ -18619,13 +18619,11 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
                       class: "flex justify-between items-center py-2 border-b last:border-b-0"
                     }, [
                       createBaseVNode("span", null, toDisplayString(option.name), 1),
-                      createBaseVNode("button", {
-                        onClick: ($event) => {
-                          console.log(option.id);
-                          removeLunchOption(option.id.externalId);
-                        },
+                      option.name !== "Kantina" && option.name !== "Lokalet" ? (openBlock(), createElementBlock("button", {
+                        key: 0,
+                        onClick: ($event) => removeLunchOption(option.id.externalId),
                         class: "text-red-500 hover:text-red-700"
-                      }, " Slett ", 8, _hoisted_18$1)
+                      }, " Slett ", 8, _hoisted_18$1)) : createCommentVNode("", true)
                     ]);
                   }), 128))
                 ]),

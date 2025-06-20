@@ -51,6 +51,17 @@ public class LunchOptionsController : ControllerBase
     public IActionResult Delete(Guid id)
     {
         EnsureDefaultLunchOptions();
+
+        var defaultIds = _store.Items<LunchOptions>()
+            .Where(x => x.Name == "Kantina" || x.Name == "Lokalet")
+            .Select(x => x.Id)
+            .ToList();
+
+        if (defaultIds.Contains(id))
+        {
+            return BadRequest("Default lunch options cannot be deleted.");
+        }
+
         _store.Delete(id);
         return NoContent();
     }

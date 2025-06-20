@@ -309,7 +309,8 @@ const showShoppingRelatedBlocks = computed(() => {
                             >
                                 <span>{{ option.name }}</span>
                                 <button
-                                    @click="console.log(option.id); removeLunchOption(option.id.externalId)"
+                                    v-if="option.name !== 'Kantina' && option.name !== 'Lokalet'"
+                                    @click="removeLunchOption(option.id.externalId)"
                                     class="text-red-500 hover:text-red-700"
                                 >
                                     Slett
