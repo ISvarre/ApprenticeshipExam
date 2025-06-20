@@ -1,15 +1,55 @@
 ﻿<script setup lang="ts">
 import { ShoppingCart, Plus, ArrowLeft, Check } from "lucide-vue-next";
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
+import axios from "axios";
 
-interface ShoppingItem {
-    id: number;
+
+interface shopItem {
+    id: string;
     name: string;
-    requestedBy: string;
     bought: boolean;
 }
 
-const shoppingList = ref<ShoppingItem[]>([]);
+const newItem = ref({ name: '', bought: false });
+
+const shoppingList = ref<shopItem[]>([]);
+
+async function loadShoppingList() {
+    const response = await axios.get('/api/shopitems');
+    shoppingList.value = response.data;
+}
+
+async function addShopping() {
+    const response = await axios.post('/api/shopitems', {
+        name: newItem.value.name,
+        bought: newItem.value.bought
+    });
+    shoppingList.value.push(response.data);
+}
+
+async function removeShopItem(id: string) {
+    await axios.delete(`/api/shopitems/${id}`);
+    await loadShoppingList();
+}
+
+const toggleBoughtStatus = async (id: string) => {
+    const itemIndex = shoppingList.value.findIndex(item => item.id === id);
+    if (itemIndex !== -1) {
+        const item = shoppingList.value[itemIndex];
+        try {
+            console.log(id)
+            await axios.patch(`/api/shopitems/${id.externalId}`, { bought: !item.bought }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            item.bought = !item.bought;
+        } catch (error) {
+            console.error('Failed to update item status:', error);
+            alert('Kunne ikke oppdatere status for varen. Prøv igjen senere.');
+        }
+    }
+};
 
 const newItemName = ref('');
 const newItemRequestedBy = ref('');
@@ -34,34 +74,31 @@ const totalItems = computed(() => {
     return shoppingList.value.length;
 });
 
-const addNewItem = () => {
+const addNewItem = async () => {
     if (newItemName.value.trim()) {
-        const maxId = shoppingList.value.length > 0
-            ? Math.max(...shoppingList.value.map(item => item.id))
-            : 0;
-        shoppingList.value.push({
-            id: maxId + 1,
-            name: newItemName.value.trim(),
-            requestedBy: newItemRequestedBy.value.trim() || 'Ukjent',
-            bought: false,
-        });
-        newItemName.value = '';
-        newItemRequestedBy.value = '';
+        try {
+            const response = await axios.post('/api/shopitems', {
+                name: newItemName.value.trim(),
+                bought: false,
+            });
+            shoppingList.value.push(response.data);
+            newItemName.value = '';
+        } catch (error) {
+            console.error('Failed to add new item:', error);
+            alert('Kunne ikke legge til varen. Prøv igjen senere.');
+        }
     } else {
         alert('Vennligst skriv inn navnet på varen.');
-    }
-};
-
-const toggleBoughtStatus = (id: number) => {
-    const itemIndex = shoppingList.value.findIndex(item => item.id === id);
-    if (itemIndex !== -1) {
-        shoppingList.value[itemIndex].bought = !shoppingList.value[itemIndex].bought;
     }
 };
 
 const goBack = () => {
     console.log('Navigating back to previous page (simulated)');
 };
+
+onMounted(() => {
+    loadShoppingList();
+})
 </script>
 
 <template>

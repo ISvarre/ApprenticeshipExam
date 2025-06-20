@@ -15878,7 +15878,7 @@ const _hoisted_3$2 = {
 const _hoisted_4$2 = { className: "bg-blue-600 p-2 rounded-lg" };
 const _hoisted_5$2 = { className: "flex items-center space-x-2 text-md text-gray-600" };
 const _sfc_main$2 = /* @__PURE__ */ defineComponent({
-  __name: "Header",
+  __name: "header",
   setup(__props) {
     let today = /* @__PURE__ */ new Date();
     const formattedDate = computed(() => {
@@ -18297,7 +18297,7 @@ const _hoisted_6$1 = { class: "flex flex-col md:flex-row w-full gap-6" };
 const _hoisted_7$1 = { class: "flex flex-col h-fit bg-white p-6 rounded-md shadow-sm md:w-1/2" };
 const _hoisted_8$1 = { class: "flex flex-col sm:justify-between mb-6" };
 const _hoisted_9$1 = { class: "flex gap-2 items-center shrink-0" };
-const _hoisted_10$1 = { class: "flex flex-col" };
+const _hoisted_10$1 = { class: "flex flex-col gap-2 pt-4" };
 const _hoisted_11$1 = {
   key: 0,
   class: "w-full max-w-full flex flex-wrap gap-5"
@@ -18858,9 +18858,32 @@ const _hoisted_22 = { class: "text-lg font-medium text-green-800" };
 const _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "shoppingList",
   setup(__props) {
+    ref({ name: "", bought: false });
     const shoppingList = ref([]);
+    async function loadShoppingList() {
+      const response = await axios.get("/api/shopitems");
+      shoppingList.value = response.data;
+    }
+    const toggleBoughtStatus = async (id) => {
+      const itemIndex = shoppingList.value.findIndex((item) => item.id === id);
+      if (itemIndex !== -1) {
+        const item = shoppingList.value[itemIndex];
+        try {
+          console.log(id);
+          await axios.patch(`/api/shopitems/${id.externalId}`, { bought: !item.bought }, {
+            headers: {
+              "Content-Type": "application/json"
+            }
+          });
+          item.bought = !item.bought;
+        } catch (error) {
+          console.error("Failed to update item status:", error);
+          alert("Kunne ikke oppdatere status for varen. Prøv igjen senere.");
+        }
+      }
+    };
     const newItemName = ref("");
-    const newItemRequestedBy = ref("");
+    ref("");
     const pendingItems = computed(() => {
       return shoppingList.value.filter((item) => !item.bought);
     });
@@ -18876,30 +18899,29 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
     const totalItems = computed(() => {
       return shoppingList.value.length;
     });
-    const addNewItem = () => {
+    const addNewItem = async () => {
       if (newItemName.value.trim()) {
-        const maxId = shoppingList.value.length > 0 ? Math.max(...shoppingList.value.map((item) => item.id)) : 0;
-        shoppingList.value.push({
-          id: maxId + 1,
-          name: newItemName.value.trim(),
-          requestedBy: newItemRequestedBy.value.trim() || "Ukjent",
-          bought: false
-        });
-        newItemName.value = "";
-        newItemRequestedBy.value = "";
+        try {
+          const response = await axios.post("/api/shopitems", {
+            name: newItemName.value.trim(),
+            bought: false
+          });
+          shoppingList.value.push(response.data);
+          newItemName.value = "";
+        } catch (error) {
+          console.error("Failed to add new item:", error);
+          alert("Kunne ikke legge til varen. Prøv igjen senere.");
+        }
       } else {
         alert("Vennligst skriv inn navnet på varen.");
-      }
-    };
-    const toggleBoughtStatus = (id) => {
-      const itemIndex = shoppingList.value.findIndex((item) => item.id === id);
-      if (itemIndex !== -1) {
-        shoppingList.value[itemIndex].bought = !shoppingList.value[itemIndex].bought;
       }
     };
     const goBack = () => {
       console.log("Navigating back to previous page (simulated)");
     };
+    onMounted(() => {
+      loadShoppingList();
+    });
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock("div", _hoisted_1, [
         createBaseVNode("div", _hoisted_2, [

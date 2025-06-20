@@ -252,7 +252,7 @@ const showShoppingRelatedBlocks = computed(() => {
                                 Velg ditt foretrukne lunsjsted for i dag
                             </p>
                         </div>
-                        <div class="flex flex-col">
+                        <div class="flex flex-col gap-2 pt-4">
                             <button
                                 v-if="!showCreateForm && !showDeleteForm"
                                 @click="showCreateForm = true"

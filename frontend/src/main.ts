@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import './style.css'
-import Header from './components/Header.vue';
+import Header from './components/header.vue';
 import frontPage from './components/frontPage.vue';
 import ShoppingList from './components/shoppingList.vue';
 
